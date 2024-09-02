@@ -1,0 +1,67 @@
+import React, { useState } from 'react'
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faAngleLeft, faUsers, faHouse, faReceipt } from "@fortawesome/free-solid-svg-icons";
+import logo from '../../assets/img/storeify.png';
+import { NavLink } from 'react-router-dom';
+
+const Nav = () => {
+
+    const [isCollapsed, setIsCollapsed] = useState(false);
+
+    const handlecollpased = () => {
+        setIsCollapsed(!isCollapsed);
+    }
+
+    return (
+
+        <div className={`sidebar ${isCollapsed ? 'collapsed' : ''}`}>
+
+            <nav className='sidebar__container'>
+
+                <div className="sidebar-top-wrapper">
+                    <div className="sidebar-top">
+                        <a href="#" className="logo__wrapper">
+                            <img src={logo} alt="Logo" className="logo-small" />
+
+                        </a>
+                    </div>
+                    <div className="expand-btn" onClick={handlecollpased}>
+                        <FontAwesomeIcon icon={faAngleLeft} />
+                    </div>
+                </div>
+                
+
+                <div className="sidebar-links">
+                    <ul>
+                        <li>
+                            <NavLink to='/creative-za/home' title="Home" className="nav__link">
+                                <FontAwesomeIcon icon={faHouse} />
+                                <span className="link hide">Home</span>
+                                <span className="tooltip__content">Home</span>
+                            </NavLink>
+                        </li>
+                        <li>
+                            <NavLink to="/creative-za/invoice" title="invoice" className="nav__link" disabled>
+                                <FontAwesomeIcon icon={faReceipt} />
+                                <span className="link hide">Crear facturas</span>
+                                <span className="tooltip__content">Crear facturas</span>
+                            </NavLink>
+                        </li>
+
+                        <li>
+                            <NavLink to="/creative-za/clients" title="clients" className="nav__link" disabled>
+                                <FontAwesomeIcon icon={faUsers} />
+                                <span className="link hide">Clientes</span>
+                                <span className="tooltip__content">Clientes</span>
+                            </NavLink>
+                        </li>
+                        
+                    </ul>
+                </div>
+
+            </nav>
+        </div>
+    )
+}
+
+export default Nav
