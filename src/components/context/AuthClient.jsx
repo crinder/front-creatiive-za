@@ -4,12 +4,13 @@ const ClientContext = createContext();
 
 export const AuthClient = ({children}) => {
 
-    const [clientesAct, setclientesAct] = useState({});
+    const [clientesAct, setClientesAct] = useState({});
+    const [isFocused, setIsFocuset] = useState(false);
 
 
 
   return (
-    <ClientContext.Provider value={{clientesAct, setclientesAct}}>
+    <ClientContext.Provider value={{clientesAct, setClientesAct,isFocused,setIsFocuset}}>
         {children}
     </ClientContext.Provider>
   )

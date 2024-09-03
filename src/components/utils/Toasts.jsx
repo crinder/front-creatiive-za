@@ -11,7 +11,7 @@ const Toasts = ({name,id}) => {
   return (
     <Row>
       <Col md={2} className="mb-2">
-        <Toast show={showA} onClose={toggleShowA} closeButton={false}>
+        <Toast show={showA} onClose={toggleShowA} >
           <Toast.Header>
             <img
               src="holder.js/20x20?text=%20"

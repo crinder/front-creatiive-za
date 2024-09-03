@@ -9,6 +9,7 @@ import Home from '../components/private/Home';
 import Invoices from '../components/invoice/Invoices';
 import Clients from '../components/clients/Clients';
 import Create from '../components/invoice/Create';
+import Attendance from '../components/attendance/Attendance';
 
 const Routing = () => {
     return (
@@ -25,6 +26,7 @@ const Routing = () => {
                             <Route path='invoice' element={<Invoices />}></Route>
                             <Route path='crear-factura' element={<Create />}></Route>
                             <Route path='clients' element={<Clients />}></Route>
+                            <Route path='asistencias' element={<Attendance/>}></Route>
                         </Route>
                     </Routes>
 
