@@ -6,22 +6,41 @@ import HeaderCollapse from './HeaderCollapse';
 import BodyCollapse from './BodyCollapse';
 import Global from '../../helpers/Global';
 import { useAuth } from '../context/AuthContext';
-import {useNavigate} from 'react-router-dom';
+import Modals from './Modals';
 
 const Attendance = () => {
 
     const { clientesAct, setClientesAct, isFocused, setIsFocuset } = useClient();
     const [clientInvoice, setClientInvoice] = useState([]);
     const { token, isLoading } = useAuth();
-    const navigate = useNavigate();
+    const { showModal, setShowModal } = useState();
+    const [show, setShow] = useState(false);
+    const [aceptar, setAceptar] = useState(false);
+    
+    
+    
+    
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+  
+
 
 
     useEffect(() => {
-        if(clientesAct.length >0){
+        if (clientesAct.length > 0) {
             getInvoice();
         }
-        
+
     }, [clientesAct]);
+
+    useEffect(()=>{
+        if(aceptar){
+            console.log(aceptar);
+            setAceptar(false);
+            handleClose();
+        }
+       
+    },[aceptar]);
 
 
     const getInvoice = async () => {
@@ -29,7 +48,7 @@ const Attendance = () => {
         let payload = {
             ids_client: clientesAct,
             status: 'ACT'
-        } 
+        }
 
         const request = await fetch(Global.url + 'attendance/list', {
 
@@ -44,22 +63,35 @@ const Attendance = () => {
 
         const data = await request.json();
 
-        if(data.status == 'success'){
+        if (data.status == 'success') {
             setClientInvoice(data);
         }
 
     }
 
-    const createAsistencia = () =>{
-        console.log('paso 1');
+
+  
+
+    const CreateAttendance = () => {
+
+
+
     }
+    
 
     return (
         <div className='content__header'>
             <Find clientesAct={clientesAct} setClientesAct={setClientesAct} isFocused={isFocused} setIsFocuset={setIsFocuset} />
-            <span className='button__form' onClick={createAsistencia}>Crear asistencia</span>
+
             <div className={`content__invoice ${isFocused ? 'opacity__element' : ''}`} >
 
+                <span variant="primary" onClick={handleShow}>
+                    Launch static backdrop modal
+                </span>
+
+
+                <Modals show={show}  handleClose={handleClose} setAceptar={setAceptar} clientesAct={clientesAct}/>
+                
                 <section className='tab__invoice'>
 
                     {clientesAct.length > 0 && clientesAct.map(clients => {
@@ -73,7 +105,7 @@ const Attendance = () => {
                                             <HeaderCollapse nombre={clients.nombre} />
                                         </Accordion.Header>
                                         <Accordion.Body>
-                                            <BodyCollapse clientInvoice={clientInvoice} clientId ={clients.id}/>
+                                            <BodyCollapse clientInvoice={clientInvoice} clientId={clients.id} />
                                         </Accordion.Body>
                                     </Accordion.Item>
                                 </Accordion>
