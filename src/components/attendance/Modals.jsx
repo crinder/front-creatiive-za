@@ -63,11 +63,7 @@ const Modals = ({ show, handleClose, setAceptar, clientesAct = [] }) => {
             clientes: clientesAct,
             amount: cantidadSelect
         };
-        console.log(clientesAct);
-
-       
-
-        console.log(body);
+    
 
         const request = await fetch(Global.url + 'attendance/register', {
             method: 'POST',

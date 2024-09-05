@@ -18,13 +18,9 @@ const Attendance = () => {
     const [aceptar, setAceptar] = useState(false);
     
     
-    
-    
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
   
-
-
 
     useEffect(() => {
         if (clientesAct.length > 0) {
@@ -35,7 +31,7 @@ const Attendance = () => {
 
     useEffect(()=>{
         if(aceptar){
-            console.log(aceptar);
+            getInvoice();
             setAceptar(false);
             handleClose();
         }
@@ -70,14 +66,7 @@ const Attendance = () => {
     }
 
 
-  
 
-    const CreateAttendance = () => {
-
-
-
-    }
-    
 
     return (
         <div className='content__header'>
