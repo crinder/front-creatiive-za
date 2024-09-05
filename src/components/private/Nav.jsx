@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faAngleLeft, faUsers, faHouse, faReceipt } from "@fortawesome/free-solid-svg-icons";
+import { faAngleLeft, faUsers, faHouse, faReceipt, faClipboardUser } from "@fortawesome/free-solid-svg-icons";
 import logo from '../../assets/img/storeify.png';
 import { NavLink } from 'react-router-dom';
 
@@ -55,6 +55,15 @@ const Nav = () => {
                                 <span className="tooltip__content">Clientes</span>
                             </NavLink>
                         </li>
+
+                        <li>
+                            <NavLink to="/creative-za/asistencias" title="asistencias" className="nav__link" disabled>
+                                <FontAwesomeIcon icon={faClipboardUser} />
+                                <span className="link hide">Asistencias</span>
+                                <span className="tooltip__content">Asistencias</span>
+                            </NavLink>
+                        </li>
+                        
                         
                     </ul>
                 </div>
