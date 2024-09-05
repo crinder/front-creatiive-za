@@ -65,9 +65,6 @@ const Attendance = () => {
 
     }
 
-
-
-
     return (
         <div className='content__header'>
             <Find clientesAct={clientesAct} setClientesAct={setClientesAct} isFocused={isFocused} setIsFocuset={setIsFocuset} />

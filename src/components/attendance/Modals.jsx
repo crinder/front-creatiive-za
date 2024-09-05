@@ -23,11 +23,8 @@ const Modals = ({ show, handleClose, setAceptar, clientesAct = [] }) => {
 
 
     const changedCantidad = (evento) => {
-
         setCantidad(evento.target.value);
-
     }
-
 
     const getMethod = async (grupo) => {
 
@@ -77,7 +74,6 @@ const Modals = ({ show, handleClose, setAceptar, clientesAct = [] }) => {
         const data = await request.json();
 
         if (data.status == 'success') {
-            console.log('success');
             setAceptar(true);
         }
     }
