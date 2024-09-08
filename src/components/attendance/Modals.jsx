@@ -95,7 +95,7 @@ const Modals = ({ show, handleClose, setAceptar, clientesAct = [] }) => {
 
                     {clientesAct.length > 0 && clientesAct.map(client => {
                         return (
-                            <li>
+                            <li key={client.id}>
                                 {client.nombre}
                             </li>
                         )
@@ -110,7 +110,10 @@ const Modals = ({ show, handleClose, setAceptar, clientesAct = [] }) => {
                         {cantidad.length > 0 && cantidad.map(payment => {
 
                             return (
-                                <option value={payment.descrip} id={payment._id}>{payment.descrip}</option>
+                                <span key={payment._id}>
+                                    <option value={payment.descrip} id={payment._id}>{payment.descrip}</option>
+                                </span>
+                                
                             )
                         })
 

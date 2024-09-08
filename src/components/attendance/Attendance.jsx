@@ -12,15 +12,24 @@ const Attendance = () => {
 
     const { clientesAct, setClientesAct, isFocused, setIsFocuset } = useClient();
     const [clientInvoice, setClientInvoice] = useState([]);
+    const [deleteAtte, setDeleteAtte] = useState();
     const { token, isLoading } = useAuth();
-    const { showModal, setShowModal } = useState();
     const [show, setShow] = useState(false);
     const [aceptar, setAceptar] = useState(false);
-    
-    
+    const title = 'Asistencias';
+
+
     const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
-  
+    const handleShow = () => {
+
+        if (clientesAct.length > 0) {
+            setShow(true);
+        } else {
+            alert('Debe seleccionar un cliente');
+        }
+
+    }
+
 
     useEffect(() => {
         if (clientesAct.length > 0) {
@@ -29,21 +38,52 @@ const Attendance = () => {
 
     }, [clientesAct]);
 
-    useEffect(()=>{
-        if(aceptar){
+    useEffect(() => {
+        if (aceptar) {
             getInvoice();
             setAceptar(false);
             handleClose();
         }
-       
-    },[aceptar]);
+
+    }, [aceptar]);
+
+
+    useEffect(() => {
+            if(deleteAtte){
+                deleteAttendance();
+            }
+           
+
+    },[deleteAtte]);
+
+    const deleteAttendance = async () => {
+
+        const id = deleteAtte;
+
+        const request = await fetch (Global.url+'attendance/delete/'+id,{
+            method: 'DELETE',
+            headers: {
+                "Content-type": 'application/json',
+                "authorization": token
+            }
+        });
+
+        const data = await request.json();
+
+        if(data.status == 'success'){
+            console.log('Asistencia eliminada');
+            getInvoice();
+        }
+
+    }
 
 
     const getInvoice = async () => {
 
         let payload = {
             ids_client: clientesAct,
-            status: 'ACT'
+            status: 'ACT',
+            statusFac: 'PEN'
         }
 
         const request = await fetch(Global.url + 'attendance/list', {
@@ -67,23 +107,18 @@ const Attendance = () => {
 
     return (
         <div className='content__header'>
-            <Find clientesAct={clientesAct} setClientesAct={setClientesAct} isFocused={isFocused} setIsFocuset={setIsFocuset} />
+            <Find title={title} clientesAct={clientesAct} setClientesAct={setClientesAct} isFocused={isFocused} setIsFocuset={setIsFocuset} />
 
             <div className={`content__invoice ${isFocused ? 'opacity__element' : ''}`} >
 
-                <span variant="primary" onClick={handleShow}>
-                    Launch static backdrop modal
-                </span>
+                <Modals show={show} handleClose={handleClose} setAceptar={setAceptar} clientesAct={clientesAct} />
 
-
-                <Modals show={show}  handleClose={handleClose} setAceptar={setAceptar} clientesAct={clientesAct}/>
-                
                 <section className='tab__invoice'>
 
-                    {clientesAct.length > 0 && clientesAct.map(clients => {
+                    {clientesAct.length > 0 &&  clientesAct.map(clients => {
 
                         return (
-                            <div key={clients.id}>
+                            <div key={clients.id} className='accordion__div'>
 
                                 <Accordion defaultActiveKey="0">
                                     <Accordion.Item eventKey="0">
@@ -91,7 +126,7 @@ const Attendance = () => {
                                             <HeaderCollapse nombre={clients.nombre} />
                                         </Accordion.Header>
                                         <Accordion.Body>
-                                            <BodyCollapse clientInvoice={clientInvoice} clientId={clients.id} />
+                                            <BodyCollapse clientInvoice={clientInvoice} clientId={clients.id} setDeleteAtte={setDeleteAtte} />
                                         </Accordion.Body>
                                     </Accordion.Item>
                                 </Accordion>
@@ -105,7 +140,12 @@ const Attendance = () => {
                     }
 
                 </section>
+            </div>
 
+            <div className='div__espacio'>
+            <span class="button__span" onClick={handleShow}>
+                    Crear asistencia
+                </span>
             </div>
         </div>
     )
