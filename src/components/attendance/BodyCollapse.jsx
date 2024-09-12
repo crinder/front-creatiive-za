@@ -1,21 +1,23 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import Global from '../../helpers/Global';
 
-const BodyCollapse = ({ clientInvoice, clientId }) => {
+const BodyCollapse = ({ clientInvoice, clientId, setDeleteAtte }) => {
 
-  console.log(clientInvoice);
-  console.log(clientId);
   let attendances = [];
   let invoices = [];
 
 
-  if(clientInvoice.attendanceStored){
-     attendances =  clientInvoice.attendanceStored.filter(attendances => attendances.id_client == clientId);
-     invoices =    clientInvoice.invoiceStored.filter(invoices => invoices.id_client == clientId);
+  if (clientInvoice.attendanceStored) {
+    attendances = clientInvoice.attendanceStored.filter(attendances => attendances.id_client == clientId);
+    invoices = clientInvoice.invoiceStored.filter(invoices => invoices.id_client == clientId);
   }
-  
 
-  console.log(attendances);
+  const deleteAttendance = (id) => {
 
+    setDeleteAtte(id);
+  }
 
   return (
     <div>
@@ -29,6 +31,7 @@ const BodyCollapse = ({ clientInvoice, clientId }) => {
               <th>Fecha asistencia</th>
               <th>Monto</th>
               <th>Estatus</th>
+              <th>Acción</th>
             </tr>
           </thead>
           <tbody id="team-member-rows">
@@ -51,6 +54,7 @@ const BodyCollapse = ({ clientInvoice, clientId }) => {
                     </span>
                   </td>
                   <td>{attendance.status}</td>
+                  <td><FontAwesomeIcon icon={faTrash} onClick={e => deleteAttendance(attendance._id)} /></td>
                 </tr>
 
               )
@@ -64,12 +68,12 @@ const BodyCollapse = ({ clientInvoice, clientId }) => {
 
             {invoices.length > 0 && invoices.map(invoice => {
 
-              return(
+              return (
                 <tr>
-              <td colspan="4">
-                total: {invoice.amount}
-              </td>
-            </tr>
+                  <td colspan="4">
+                    total: {invoice.amount}
+                  </td>
+                </tr>
               )
 
             })

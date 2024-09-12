@@ -1,54 +1,141 @@
 import React, { useEffect, useState } from 'react'
 import Global from '../../helpers/Global';
 import { useAuth } from '../context/AuthContext';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye, faHandHoldingDollar, faXmark } from "@fortawesome/free-solid-svg-icons";
+import Modals from './Modal';
+import { useNavigate } from 'react-router-dom'
 
-const InvoicesTab = ({ tabkey, clients }) => {
+const InvoicesTab = ({ tabkey, clients, clientesAct }) => {
 
   const [invoicesGet, setInvoiceGet] = useState({});
   const { token, isLoading } = useAuth();
 
+  const [aceptar, setAceptar] = useState(false);
+
+  const navigate = useNavigate();
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+  const [params, setParams] = useState({});
+
   const getInvoices = async () => {
 
-    let status;
+    if (clients.length > 0) {
 
-    console.log(clients);
+      let status;
 
-    if (tabkey == 'cobradas') {
-      status = 'PAG';
-    } else if (tabkey == 'pendiente') {
-      status = 'PEN';
+      if (tabkey == 'cobradas') {
+        status = 'COB';
+      } else if (tabkey == 'pendiente') {
+        status = 'PEN';
+      } else if (tabkey == 'canceladas') {
+        status = 'CAN';
+      }
+
+      let body = {
+        status: status,
+        id_clientes: clients
+      }
+
+      const request = await fetch(Global.url + 'invoice/list', {
+        method: 'POST',
+        body: JSON.stringify(body),
+        headers: {
+          "Content-type": 'application/json',
+          "authorization": token
+        }
+
+      });
+
+      const data = await request.json();
+
+      if (data.status == 'success') {
+        setInvoiceGet(data.facturas);
+
+      }
+    }
+  }
+
+  useEffect(() => {
+    if (clients.length > 0) {
+      getInvoices();
     }
 
-    let body = {
-      status: status,
-      id_clientes: clients
+  }, [tabkey]);
+
+  useEffect(() => {
+    if (clients.length > 0) {
+      getInvoices();
     }
 
-    const request = await fetch(Global.url + 'invoice/list', {
-      method: 'POST',
-      body: JSON.stringify(body),
+  }, [clients]);
+
+  useEffect(() => {
+    if (aceptar) {
+      getInvoices();
+      setAceptar(false);
+      handleClose();
+    }
+
+  }, [aceptar]);
+
+  const cobrar = (idfact) => {
+    let params = {
+      header: 'Cobrar factura',
+      body: 'Esta seguro de cobrar la factura?',
+      idfact: idfact,
+      action: 'COBRAR'
+    }
+
+    setParams(params);
+
+    handleShow();
+
+  }
+
+  const cancelar = (idfact) => {
+
+    let params = {
+      header: 'Cancelar factura',
+      body: 'Esta seguro de cancelar la factura?',
+      idfact: idfact,
+      action: 'CANCELAR'
+    }
+
+    setParams(params);
+    handleShow();
+
+  }
+
+
+  const getAttendance = async (idefact) => {
+
+    const request = await fetch(Global.url + 'attendance/list-fac/' + idefact, {
+      method: 'GET',
       headers: {
         "Content-type": 'application/json',
         "authorization": token
       }
-
     });
+
 
     const data = await request.json();
 
-    if (data.status == 'success') {
-      setInvoiceGet(data.facturas);
 
+    if (data.status == 'success') {
+      let datos = data.attendancestored;
+      navigate('/creative-za/consultar', { state: { datos, clientesAct } });
     }
+
+
 
   }
 
-  useEffect(() => {
-    getInvoices();
-  }, [tabkey,clients]);
 
   return (
-    <div>{tabkey}
+    <div>
+      <Modals show={show} handleClose={handleClose} setAceptar={setAceptar} params={params} />
       <div className="table-widget">
         <table>
           <caption>
@@ -59,13 +146,14 @@ const InvoicesTab = ({ tabkey, clients }) => {
               <th>Nombre</th>
               <th>Monto</th>
               <th>Fecha</th>
-              <th>Metodo de pago</th>
+              {tabkey != 'canceladas' && <th>Metodo de pago</th>}
+              <th>Acciones</th>
             </tr>
           </thead>
           <tbody id="team-member-rows">
             {invoicesGet.length > 0 && invoicesGet.map(invoice => {
               return (
-                <tr>
+                <tr key={invoice._id}>
                   <td className="team-member-profile">
                     {/*<img src="${teamMember.src}" alt="${teamMember.name}"/>*/}
                     <span className="profile-info">
@@ -85,7 +173,11 @@ const InvoicesTab = ({ tabkey, clients }) => {
                     </span>
                   </td>
                   <td>{invoice.created_at}</td>
-                  <td>{invoice.payment_method}</td>
+                  {tabkey != 'canceladas' && <td>{invoice.payment_method}</td>}
+                  {tabkey == 'pendiente' && <td><FontAwesomeIcon icon={faHandHoldingDollar} onClick={e => cobrar(invoice._id)} /></td>}
+                  {tabkey == 'pendiente' && <td><FontAwesomeIcon icon={faXmark} onClick={e => cancelar(invoice._id)} /></td>}
+                  <td><FontAwesomeIcon icon={faEye} onClick={e => getAttendance(invoice._id)} /></td>
+
                 </tr>
               )
             })
@@ -95,7 +187,7 @@ const InvoicesTab = ({ tabkey, clients }) => {
           </tbody>
           <tfoot>
             <tr>
-              <td colspan="4">
+              <td>
                 <ul className="pagination">
                 </ul>
               </td>

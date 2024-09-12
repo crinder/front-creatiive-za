@@ -7,10 +7,12 @@ export const AuthClient = ({children}) => {
     const [clientesAct, setClientesAct] = useState({});
     const [isFocused, setIsFocuset] = useState(false);
 
-
+    const limpiarClient = () =>{
+      setClientesAct({});
+    }
 
   return (
-    <ClientContext.Provider value={{clientesAct, setClientesAct,isFocused,setIsFocuset}}>
+    <ClientContext.Provider value={{clientesAct, setClientesAct,isFocused,setIsFocuset,limpiarClient}}>
         {children}
     </ClientContext.Provider>
   )

@@ -459,7 +459,7 @@ form.form__signup {
  /* background: var(--search-bg);*/
   border-color: rgb(229 231 235 /1);
   height: 3.1rem;
-  width: 70%;
+  width: 100%;
   padding: 0 1.1rem;
   padding-left: 4rem;
   outline: none;
@@ -881,6 +881,7 @@ form.form__signup {
 }
 
 .content__header{
+  width: 70%;
   padding: 2rem;
 }
 
@@ -937,7 +938,7 @@ form.form__signup {
 /*****************/
 
 .tab__invoice{
-  margin-top: 25rem;
+  margin-top: 2rem;
 }
 
 
@@ -958,9 +959,9 @@ form.form__signup {
   
 }
 
-.client__response
 
 .toast__clients{
+  margin-top: 20rem;
   padding: 0 1.6rem;
 }
 
@@ -1173,4 +1174,51 @@ form.form__signup {
 .pagination a:hover, a.active{
   background: var(--odd-row);
   text-decoration: underline;
+}
+
+.div__espacio{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2rem;
+}
+
+.button__span{
+  padding: 1rem;
+  margin-top: 1rem;
+  outline: none;
+  -webkit-border-radius: 49px;
+  -moz-border-radius: 49px;
+  -ms-border-radius: 49px;
+  -o-border-radius: 49px;
+  border-radius: 49px;
+  cursor: pointer;
+  border: 0.1rem solid#5995fd;
+  color: #AAAAB2;
+  font-size: 1.6rem;
+  font-weight: 600;
+  -webkit-transition: background-color 100ms ease-in;
+  -moz-transition: background-color 100ms ease-in;
+  -ms-transition: background-color 100ms ease-in;
+  -o-transition: background-color 100ms ease-in;
+  transition: all 300ms ease-in-out;
+}
+
+.button__span:hover {
+  background-color: #4d84e2;
+  color: #fff;
+}
+
+.accordion__div{
+  margin-top: 1rem;
+}
+
+.header__collapse{
+  font-size: 1.5rem;
+  font-weight: bold;
+  padding-left: 1rem;
+}
+
+.icon__header_collapse{
+  margin-right: 1rem;
 }

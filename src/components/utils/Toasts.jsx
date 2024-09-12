@@ -3,15 +3,22 @@ import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Toast from 'react-bootstrap/Toast';
 
-const Toasts = ({name,id}) => {
+const Toasts = ({name,id,clientResponse,setClientResponse}) => {
 
     const [showA, setShowA] = useState(true);
-    const toggleShowA = () => setShowA(!showA);
+    const toggleShowA = (id) => {
+    let filterClient;
+      
+      filterClient = clientResponse.filter(select => select.id != id);
+      setClientResponse(filterClient);
+      setShowA(!showA);
+      
+    }
     
   return (
     <Row>
       <Col md={2} className="mb-2">
-        <Toast show={showA} onClose={toggleShowA} >
+        <Toast show={showA} onClose={ e => toggleShowA(id)} >
           <Toast.Header>
             <img
               src="holder.js/20x20?text=%20"

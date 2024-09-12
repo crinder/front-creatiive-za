@@ -112,7 +112,7 @@ const Create = () => {
             {clientes.length > 0 && clientes.map(client => {
 
                 return (
-                    <Toasts name={client.nombre} id={client.id} closed={'N'} />
+                    <Toasts name={client.nombre} id={client.id}/>
                 )
             })
 
