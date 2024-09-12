@@ -49,18 +49,18 @@ const Attendance = () => {
 
 
     useEffect(() => {
-            if(deleteAtte){
-                deleteAttendance();
-            }
-           
+        if (deleteAtte) {
+            deleteAttendance();
+        }
 
-    },[deleteAtte]);
+
+    }, [deleteAtte]);
 
     const deleteAttendance = async () => {
 
         const id = deleteAtte;
 
-        const request = await fetch (Global.url+'attendance/delete/'+id,{
+        const request = await fetch(Global.url + 'attendance/delete/' + id, {
             method: 'DELETE',
             headers: {
                 "Content-type": 'application/json',
@@ -70,7 +70,7 @@ const Attendance = () => {
 
         const data = await request.json();
 
-        if(data.status == 'success'){
+        if (data.status == 'success') {
             console.log('Asistencia eliminada');
             getInvoice();
         }
@@ -115,7 +115,7 @@ const Attendance = () => {
 
                 <section className='tab__invoice'>
 
-                    {clientesAct.length > 0 &&  clientesAct.map(clients => {
+                    {clientesAct.length > 0 && clientesAct.map(clients => {
 
                         return (
                             <div key={clients.id} className='accordion__div'>
@@ -143,7 +143,7 @@ const Attendance = () => {
             </div>
 
             <div className='div__espacio'>
-            <span class="button__span" onClick={handleShow}>
+                <span class="button__span" onClick={handleShow}>
                     Crear asistencia
                 </span>
             </div>

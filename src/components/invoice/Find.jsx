@@ -6,13 +6,14 @@ import { useAuth } from '../context/AuthContext';
 import Toasts from '../utils/Toasts';
 
 
-const Find = ({ title, clientesAct, setClientesAct, isFocused, setIsFocuset }) => {
+const Find = ({ title, clientesAct, setClientesAct, isFocused, setIsFocuset,ind }) => {
     const { token, isLoading } = useAuth();
 
     const [inputClient, setInputClient] = useState('');
     const [requestClient, setRequestClient] = useState('');
     const [clientSuccess, setClientSuccess] = useState(false);
     const [clientResponse, setClientResponse] = useState([]);
+
 
     const handleFocus = () => setIsFocuset(true);
 
@@ -33,7 +34,20 @@ const Find = ({ title, clientesAct, setClientesAct, isFocused, setIsFocuset }) =
     }, [inputClient]);
 
     useEffect(() => {
-        setClientesAct(clientResponse);
+
+        if(clientResponse.length > 0){
+
+            setClientesAct(clientResponse);
+        }
+
+        if(clientResponse.length == 0 && clientesAct.length > 0 ){
+            setClientResponse(clientesAct);
+        }
+
+        if(ind == 'R'){
+            setClientesAct({});
+        }
+
     }, [clientResponse]);
 
     const changeInput = (event) => {
@@ -48,28 +62,29 @@ const Find = ({ title, clientesAct, setClientesAct, isFocused, setIsFocuset }) =
 
         setClientResponse(clientSelected ? clientResponse.filter(selected => selected.od !== id) :
             [...clientResponse, { id: id, nombre: nombre }]);
-
+       
     }
 
 
     const devuelveClientes = async () => {
 
-        const request = await fetch(Global.url + 'client/list-clients/' + inputClient, {
-            method: 'GET',
-            headers: {
-                "Content-type": 'application/json',
-                "authorization": token
+        if (inputClient.length > 0) {
+            const request = await fetch(Global.url + 'client/list-clients/' + inputClient, {
+                method: 'GET',
+                headers: {
+                    "Content-type": 'application/json',
+                    "authorization": token
+                }
+
+            });
+
+            const data = await request.json();
+
+            if (data.status == 'success') {
+                setRequestClient(data.clientStored);
+                setClientSuccess(true);
             }
-
-        });
-
-        const data = await request.json();
-
-        if (data.status == 'success') {
-            setRequestClient(data.clientStored);
-            setClientSuccess(true);
         }
-
     }
 
     return (
