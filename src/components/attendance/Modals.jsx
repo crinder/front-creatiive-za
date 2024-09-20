@@ -60,7 +60,7 @@ const Modals = ({ show, handleClose, setAceptar, clientesAct = [] }) => {
             clientes: clientesAct,
             amount: cantidadSelect
         };
-    
+
 
         const request = await fetch(Global.url + 'attendance/register', {
             method: 'POST',
@@ -110,10 +110,9 @@ const Modals = ({ show, handleClose, setAceptar, clientesAct = [] }) => {
                         {cantidad.length > 0 && cantidad.map(payment => {
 
                             return (
-                                <span key={payment._id}>
-                                    <option value={payment.descrip} id={payment._id}>{payment.descrip}</option>
-                                </span>
-                                
+
+                                <option value={payment.descrip} id={payment._id}>{payment.descrip}</option>
+
                             )
                         })
 

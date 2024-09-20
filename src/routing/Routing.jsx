@@ -11,6 +11,8 @@ import Clients from '../components/clients/Clients';
 import Create from '../components/invoice/Create';
 import Attendance from '../components/attendance/Attendance';
 import Detail from '../components/attendance/Detail';
+import Facturas from '../components/querys/Facturas';
+import Asistencias from '../components/querys/Asistencias';
 
 const Routing = () => {
     return (
@@ -29,6 +31,8 @@ const Routing = () => {
                             <Route path='clients' element={<Clients />}></Route>
                             <Route path='asistencias' element={<Attendance/>}></Route>
                             <Route path='consultar' element={<Detail/>}></Route>
+                            <Route path='consultar-asistencias' element={<Asistencias/>}></Route>
+                            <Route path='consultar-facturas' element={<Facturas/>}></Route>
                         </Route>
                     </Routes>
 
