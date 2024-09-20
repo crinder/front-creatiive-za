@@ -4,7 +4,8 @@ import { useAuth } from '../context/AuthContext';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faHandHoldingDollar, faXmark } from "@fortawesome/free-solid-svg-icons";
 import Modals from './Modal';
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom';
+import moment from 'moment';
 
 const InvoicesTab = ({ tabkey, clients, clientesAct }) => {
 
@@ -170,7 +171,7 @@ const InvoicesTab = ({ tabkey, clients, clientesAct }) => {
                       {invoice.amount+''+invoice.payment_charge}
                     </span>
                   </td>
-                  <td>{invoice.created_at}</td>
+                  <td>{moment(invoice.created_at).format('YYYY-MM-DD HH:mm:ss')}</td>
                   {tabkey == 'cobradas' && <td>{invoice.payment_method}</td>}
                   {tabkey == 'pendiente' && <td><FontAwesomeIcon icon={faHandHoldingDollar} onClick={e => cobrar(invoice._id)} /></td>}
                   {tabkey == 'pendiente' && <td><FontAwesomeIcon icon={faXmark} onClick={e => cancelar(invoice._id)} /></td>}

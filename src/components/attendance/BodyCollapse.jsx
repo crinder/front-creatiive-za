@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
-import Global from '../../helpers/Global';
+import moment from 'moment';
 
 const BodyCollapse = ({ clientInvoice, clientId, setDeleteAtte }) => {
 
@@ -44,7 +44,7 @@ const BodyCollapse = ({ clientInvoice, clientId, setDeleteAtte }) => {
                     <span className="profile-info">
 
                       <span className="profile-info__name">
-                        {attendance.created_at}
+                        {moment(attendance.created_at).format('YYYY-MM-DD HH:mm:ss')}
                       </span>
                     </span>
                   </td>
@@ -54,9 +54,8 @@ const BodyCollapse = ({ clientInvoice, clientId, setDeleteAtte }) => {
                     </span>
                   </td>
                   <td>{attendance.status}</td>
-                  <td><FontAwesomeIcon icon={faTrash} onClick={e => deleteAttendance(attendance._id)} /></td>
+                 {attendance.status == 'ACT' &&  <td><FontAwesomeIcon icon={faTrash} onClick={e => deleteAttendance(attendance._id)}/></td>}
                 </tr>
-
               )
             })
 
