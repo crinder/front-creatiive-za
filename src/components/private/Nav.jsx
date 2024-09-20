@@ -12,6 +12,12 @@ const Nav = () => {
         setIsCollapsed(!isCollapsed);
     }
 
+    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
+    const handleDropdownToggle = () => {
+        setIsDropdownOpen(!isDropdownOpen);
+    };
+
     return (
 
         <div className={`sidebar ${isCollapsed ? 'collapsed' : ''}`}>
@@ -29,10 +35,10 @@ const Nav = () => {
                         <FontAwesomeIcon icon={faAngleLeft} />
                     </div>
                 </div>
-                
+
 
                 <div className="sidebar-links">
-                    <ul>
+                    <ul className='navigation'>
                         <li>
                             <NavLink to='/creative-za/home' title="Home" className="nav__link">
                                 <FontAwesomeIcon icon={faHouse} />
@@ -63,8 +69,44 @@ const Nav = () => {
                                 <span className="tooltip__content">Asistencias</span>
                             </NavLink>
                         </li>
-                        
-                        
+
+                        <li>
+                            <div onClick={handleDropdownToggle}>
+                                <NavLink to="#" title="asistencias" className="nav__link" disabled>
+                                    <FontAwesomeIcon icon={faClipboardUser} />
+                                    <span className="link hide">Consultas</span>
+                                </NavLink>
+                            </div>
+                                <div className={` ${isDropdownOpen ? 'dropdown__menu' : 'dropdown__hide'}`}>
+                                    <ul>
+                                        <li>
+                                            <NavLink to="/creative-za/consultar-asistencias" title="consultar-asistencias" className="nav__link" disabled>
+                                                <FontAwesomeIcon icon={faClipboardUser} />
+                                                <span className="link hide">Asistencias</span>
+                                                <span className="tooltip__content">Asistencias</span>
+                                            </NavLink>
+                                        </li>
+                                        <li>
+                                            <NavLink to="/creative-za/consultar-facturas" title="consultar-facturas" className="nav__link" disabled>
+                                            <FontAwesomeIcon icon={faClipboardUser} />
+                                            <span className="link hide">Facturas</span>
+                                            <span className="tooltip__content">Facturas</span>
+                                            </NavLink>
+                                        </li>
+
+                                    </ul>
+                                </div>
+                            
+                        </li>
+
+                        <li>
+                            <NavLink to="/creative-za/asistencias" title="asistencias" className="nav__link" disabled>
+                                <FontAwesomeIcon icon={faClipboardUser} />
+                                <span className="link hide">Asistencias</span>
+                                <span className="tooltip__content">Asistencias</span>
+                            </NavLink>
+                        </li>
+
                     </ul>
                 </div>
 

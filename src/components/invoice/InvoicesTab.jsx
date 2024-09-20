@@ -128,8 +128,6 @@ const InvoicesTab = ({ tabkey, clients, clientesAct }) => {
       navigate('/creative-za/consultar', { state: { datos, clientesAct } });
     }
 
-
-
   }
 
 
@@ -146,7 +144,7 @@ const InvoicesTab = ({ tabkey, clients, clientesAct }) => {
               <th>Nombre</th>
               <th>Monto</th>
               <th>Fecha</th>
-              {tabkey != 'canceladas' && <th>Metodo de pago</th>}
+              {tabkey == 'cobradas' && <th>Metodo de pago</th>}
               <th>Acciones</th>
             </tr>
           </thead>
@@ -169,11 +167,11 @@ const InvoicesTab = ({ tabkey, clients, clientesAct }) => {
                   </td>
                   <td>
                     <span className="status status--${teamMember.status}">
-                      {invoice.amount}
+                      {invoice.amount+''+invoice.payment_charge}
                     </span>
                   </td>
                   <td>{invoice.created_at}</td>
-                  {tabkey != 'canceladas' && <td>{invoice.payment_method}</td>}
+                  {tabkey == 'cobradas' && <td>{invoice.payment_method}</td>}
                   {tabkey == 'pendiente' && <td><FontAwesomeIcon icon={faHandHoldingDollar} onClick={e => cobrar(invoice._id)} /></td>}
                   {tabkey == 'pendiente' && <td><FontAwesomeIcon icon={faXmark} onClick={e => cancelar(invoice._id)} /></td>}
                   <td><FontAwesomeIcon icon={faEye} onClick={e => getAttendance(invoice._id)} /></td>

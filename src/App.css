@@ -1222,3 +1222,38 @@ form.form__signup {
 .icon__header_collapse{
   margin-right: 1rem;
 }
+
+.link__dropdown  {
+  
+  transition: all 5s ease-in-out !important;
+}
+
+.dropdown__menu {
+  display: block;
+  padding: 1rem;
+  margin-left: 2rem;
+  transition: all 1s ease-in-out;
+}
+
+.dropdown__hide{
+  animation: fadeDiv 1.5s forwards;
+}
+
+@keyframes fadeDiv {
+
+  from{
+     opacity: 1;
+     height: 100px;
+  }
+
+  to{
+    opacity: 0;
+    height: 0px;
+    overflow: hidden;
+  }
+ 
+}
+
+
+
+
