@@ -77,32 +77,38 @@ const Nav = () => {
                                     <span className="link hide">Consultas</span>
                                 </NavLink>
                             </div>
-                                <div className={` ${isDropdownOpen ? 'dropdown__menu' : 'dropdown__hide'}`}>
-                                    <ul>
-                                        <li>
-                                            <NavLink to="/creative-za/consultar-asistencias" title="consultar-asistencias" className="nav__link" disabled>
-                                                <FontAwesomeIcon icon={faClipboardUser} />
-                                                <span className="link hide">Asistencias</span>
-                                                <span className="tooltip__content">Asistencias</span>
-                                            </NavLink>
-                                        </li>
-                                        <li>
-                                            <NavLink to="/creative-za/consultar-facturas" title="consultar-facturas" className="nav__link" disabled>
+                            <div className={` ${isDropdownOpen ? 'dropdown__menu' : 'dropdown__hide'}`}>
+                                <ul>
+                                    <li>
+                                        <NavLink to="/creative-za/consultar-asistencias" title="consultar-asistencias" className="nav__link" disabled>
                                             <FontAwesomeIcon icon={faClipboardUser} />
-                                            <span className="link hide">Facturas</span>
-                                            <span className="tooltip__content">Facturas</span>
-                                            </NavLink>
-                                        </li>
+                                            <span className="link hide">Asistencias</span>
+                                            <span className="tooltip__content">Asistencias</span>
+                                        </NavLink>
+                                    </li>
+                                    <li>
+                                        <NavLink to="/creative-za/consultar-otros" title="consultar-otros" className="nav__link" disabled>
+                                            <FontAwesomeIcon icon={faClipboardUser} />
+                                            <span className="link hide">Otros pagos</span>
+                                            <span className="tooltip__content">Otros pagos</span>
+                                        </NavLink>
+                                    </li>
+                                    <li>
+                                        <NavLink to="/creative-za/consultar-balance" title="consultar-otros" className="nav__link" disabled>
+                                            <FontAwesomeIcon icon={faClipboardUser} />
+                                            <span className="link hide">Balance</span>
+                                            <span className="tooltip__content">Ingresos y Egresos</span>
+                                        </NavLink>
+                                    </li>
 
-                                    </ul>
-                                </div>
+                                </ul>
+                            </div>
                         </li>
-
                         <li>
-                            <NavLink to="/creative-za/asistencias" title="asistencias" className="nav__link" disabled>
-                                <FontAwesomeIcon icon={faClipboardUser} />
-                                <span className="link hide">Asistencias</span>
-                                <span className="tooltip__content">Asistencias</span>
+                            <NavLink to='/creative-za/otros-pagos' title="Home" className="nav__link">
+                                <FontAwesomeIcon icon={faHouse} />
+                                <span className="link hide">Otros pagos</span>
+                                <span className="tooltip__content">Otros pagos</span>
                             </NavLink>
                         </li>
 

@@ -11,8 +11,10 @@ import Clients from '../components/clients/Clients';
 import Create from '../components/invoice/Create';
 import Attendance from '../components/attendance/Attendance';
 import Detail from '../components/attendance/Detail';
-import Facturas from '../components/querys/Facturas';
 import Asistencias from '../components/querys/Asistencias';
+import Others from '../components/others/Others';
+import Otros from '../components/querys/Otros';
+import Balance from '../components/querys/Balance';
 
 const Routing = () => {
     return (
@@ -32,7 +34,9 @@ const Routing = () => {
                             <Route path='asistencias' element={<Attendance/>}></Route>
                             <Route path='consultar' element={<Detail/>}></Route>
                             <Route path='consultar-asistencias' element={<Asistencias/>}></Route>
-                            <Route path='consultar-facturas' element={<Facturas/>}></Route>
+                            <Route path='consultar-otros' element={<Otros/>}></Route>
+                            <Route path='otros-pagos' element={<Others/>}></Route>
+                            <Route path='consultar-balance' element={<Balance/>}></Route>
                         </Route>
                     </Routes>
 

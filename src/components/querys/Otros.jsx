@@ -1,21 +1,20 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import DatePicker from "react-datepicker";
 import moment from "moment";
 import Global from '../../helpers/Global';
 import { useAuth } from '../context/AuthContext';
 import Form from 'react-bootstrap/Form';
 
-const Asistencias = () => {
+const Otros = () => {
 
     const { token, isLoading } = useAuth();
     const [statusDes, setStatusDes] = useState('');
     const [statusInvoice, setStatusInvoice] = useState('');
-    const [statusAttendance, setStatusAttendance] = useState('');
-    const [clientInvoice, setClientInvoice] = useState('');
+    const [otroPagos, setOtrosPagos] = useState([]);
 
     useEffect(() => {
 
-        getMethod('invoices_status');
+        getMethod('other_payment');
 
     }, []);
 
@@ -23,10 +22,6 @@ const Asistencias = () => {
         setStatusInvoice(evento.target.value);
     }
 
-
-    const changeStatusAttendance = (evento) => {
-        setStatusAttendance(evento.target.value);
-    }
 
     const getMethod = async (grupo) => {
 
@@ -51,7 +46,6 @@ const Asistencias = () => {
 
             setStatusDes(data.findStored);
             setStatusInvoice(data.findStored[0]?.code);
-            setStatusAttendance(data.findStored[0]?.code);
 
         }
 
@@ -79,7 +73,7 @@ const Asistencias = () => {
             }
 
 
-            const request = await fetch(Global.url + 'invoice/list', {
+            const request = await fetch(Global.url + 'others/get', {
 
                 method: 'POST',
                 body: JSON.stringify(body),
@@ -93,8 +87,8 @@ const Asistencias = () => {
             const data = await request.json();
 
             if (data.status == 'success') {
-                console.log(data.facturas);
-                setClientInvoice(data.facturas);
+                console.log(data.others);
+                setOtrosPagos(data.others);
             }
 
         }
@@ -106,13 +100,13 @@ const Asistencias = () => {
 
 
     return (
-        <div>Consultar asistencias
+        <div>Consultar pagos
 
             <div>
                 <form onSubmit={getData}>
 
 
-                    <label htmlFor="fecinic">Estatus factura</label>
+                    <label htmlFor="fecinic">Filtrar</label>
                     <Form.Select aria-label="Default select example" onChange={changeStatusInvoice}>
                         {statusDes.length > 0 && statusDes.map(payment => {
 
@@ -149,70 +143,46 @@ const Asistencias = () => {
                             <span className="table-row-count"></span>
                         </caption>
 
-                        {clientInvoice.length > 0 && clientInvoice.map(client => {
+                        <caption>
+                            <thead>
+                                <th>ID pago</th>
+                                <th>Estado</th>
+                                <th>Monto</th>
+                                <th>Fecha</th>
+                            </thead>
 
-                            return (
-                                <caption key={client._id}>
-                                    <thead key={client._id}>
-                                        {client.clients.map(clientes => {
+                            <tbody id="team-member-rows">
 
-                                            return (
-                                                <tr key={clientes._id}>
-                                                    <th>{clientes.name}</th>
-                                                </tr>
-                                            )
+                                {otroPagos.length > 0 && otroPagos.map(client => {
 
-                                        })}
-                                    </thead>
+                                    return (
 
-                                    <tbody id="team-member-rows">
-                                        <tr>
+                                        <tr key={client._id}>
                                             <td className='profile-info__name'>
-                                                ID asistencia
+                                                {client._id}
                                             </td>
                                             <td className='profile-info__name'>
-                                                Estado
+                                                {client.status}
                                             </td>
                                             <td className='profile-info__name'>
-                                                Monto
+                                                {client.amount}
                                             </td>
                                             <td className='profile-info__name'>
-                                                Fecha de asistencia
+                                                {moment(client.created_at).format('DD-MM-YYYY HH:mm:ss')}
                                             </td>
                                         </tr>
-                                        {client.asistencias.map(asistencia => {
-                                            return (
-                                                <tr key={asistencia._id}>
-                                                    <td className='profile-info__name'>
-                                                        {asistencia._id}
-                                                    </td>
-                                                    <td className='profile-info__name'>
-                                                        {asistencia.status}
-                                                    </td>
-                                                    <td className='profile-info__name'>
-                                                        {asistencia.amount}
-                                                    </td>
-                                                    <td className='profile-info__name'>
-                                                        {moment(asistencia.created_at).format('DD-MM-YYYY HH:mm:ss')}
-                                                    </td>
-                                                </tr>
-                                            )
-                                        })
-
-                                        }
-
-                                    </tbody>
-                                </caption>
 
 
-                            )
-                        })
 
-                        }
+                                    )
+                                })
+
+                                }
+
+                            </tbody>
+                        </caption>
 
 
-                        <tbody id="team-member-rows">
-                        </tbody>
                         <tfoot>
                             <tr>
                                 <td>
@@ -228,4 +198,4 @@ const Asistencias = () => {
     )
 }
 
-export default Asistencias
+export default Otros

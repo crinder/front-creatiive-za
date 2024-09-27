@@ -44,7 +44,7 @@ const BodyCollapse = ({ clientInvoice, clientId, setDeleteAtte }) => {
                     <span className="profile-info">
 
                       <span className="profile-info__name">
-                        {moment(attendance.created_at).format('YYYY-MM-DD HH:mm:ss')}
+                        {moment(attendance.created_at).format('DD-MM-YYYY HH:mm:ss')}
                       </span>
                     </span>
                   </td>
