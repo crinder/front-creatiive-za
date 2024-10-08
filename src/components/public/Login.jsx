@@ -1,13 +1,13 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 //import Image1 from '../../assets/img/undraw_maker_launch_re_rq81.svg'
-import Image1 from '../../assets/img/image-1.png'
-import Image2 from '../../assets/img/image-2.png'
-import { faUser, faLock } from '@fortawesome/free-solid-svg-icons'
+import { faLock, faUser } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useNavigate } from 'react-router-dom';
 import useForm from '../../assets/hooks/useform';
+import Image1 from '../../assets/img/image-1.png';
+import Image2 from '../../assets/img/image-2.png';
 import Global from '../../helpers/Global';
 import Alerts from '../utils/Alerts';
-import { useNavigate } from 'react-router-dom';
 
 const login = () => {
 
@@ -82,7 +82,7 @@ const login = () => {
 
                 <div className="container__panels">
                     <div className="panel left-panel">
-                        <div className="content content--left">
+                        <div className=" content--left">
                             <h3 className="panel__title">New here ?</h3>
                             <p className="panel__text">
                                 Lorem ipsum dolor sit amet consectetur

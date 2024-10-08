@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import moment from 'moment';
+import React from 'react';
 import Global from '../../helpers/Global';
 import { useAuth } from '../context/AuthContext';
-import moment from 'moment';
 
 
 const Table = ({ otros, setOtros }) => {
@@ -32,8 +32,8 @@ const Table = ({ otros, setOtros }) => {
 
     return (
         <div>
-            <div className="table-widget">
-                <table>
+            <div className="table-widget dark:bg-slate-700 dark:border-none dark:text-slate-300'">
+                <table className='dark:bg-slate-700 dark:border-none dark:text-slate-300'>
                     <caption>
                         <span className="table-row-count"></span>
                     </caption>

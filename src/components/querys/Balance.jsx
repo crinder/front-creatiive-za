@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react'
-import DatePicker from "react-datepicker";
 import moment from "moment";
+import React, { useEffect, useState } from 'react';
+import Form from 'react-bootstrap/Form';
+import DatePicker from "react-datepicker";
 import Global from '../../helpers/Global';
 import { useAuth } from '../context/AuthContext';
-import Form from 'react-bootstrap/Form';
 
 const Balance = () => {
 
@@ -100,12 +100,13 @@ const Balance = () => {
     const [endDate, setEndDate] = useState(new Date());
 
     return (
-        <div>Ingresos y Egresos
+        <div className="content dark:border-slate-300/10">
+            <h2 className="text-4xl font-bold mb-4 dark:text-slate-200">Ingresos y Egresos</h2>
             <div>
                 <form onSubmit={getData}>
 
-                    <label htmlFor="fecinic">Filtrar</label>
-                    <Form.Select aria-label="Default select example" onChange={changeStatusInvoice}>
+                    <label htmlFor="fecinic" className="font-bold dark:text-slate-200">Filtrar</label>
+                    <Form.Select  aria-label="Default select example" onChange={changeStatusInvoice} className="shadow-lg w-11/12 py-8 md:py-3 px-6 text-xl font-semibold my-6 mx-3 dark:bg-slate-700 dark:border-none dark:text-slate-300">
                         {statusDes.length > 0 && statusDes.map(payment => {
 
                             return (
@@ -116,12 +117,13 @@ const Balance = () => {
                         }
                     </Form.Select>
 
-                    <label htmlFor="fecinic">Fecha desde</label>
+                    <label htmlFor="fecinic" className="font-bold mt-3 dark:text-slate-300">Fecha desde</label>
                     <DatePicker
                         selected={startDate}
                         onChange={(date) => setStartDate(date)}
                         //maxDate={new Date()}
                         dateFormat="dd/MM/yyyy"
+                        className="m-2 rounded py-2 px-3 shadow-sm dark:bg-slate-700 dark:border-none dark:text-slate-300"
                     />
 
                     <DatePicker
@@ -129,20 +131,22 @@ const Balance = () => {
                         onChange={(date) => setEndDate(date)}
                         //maxDate={new Date()}
                         dateFormat="dd/MM/yyyy"
+                        className="m-2 rounded py-2 px-3 shadow-sm dark:bg-slate-700 dark:border-none dark:text-slate-300"
                     />
-                    <button type="submit" className="btn_submit solid">Buscar</button>
+                    <button type="submit" className="btn_submit solid mb-5">Buscar</button>
                 </form>
             </div>
 
-            <div className='result__client'>
-                <div className="table-widget">
+            <div className='result__client mx-auto md:flex md:justify-center'>
+                <div className="table-widget mx-auto md:w-full dark:bg-slate-700 dark:border-none dark:text-slate-300">
                     <table>
                         <caption>
-                            <span className="table-row-count"></span>
+                        <h2 className="text-3xl text-center font-bold dark:text-slate-300">Balance</h2>
+                        {/* <span className="table-row-count"></span>  */}
                         </caption>
 
                         <caption>
-                            <thead>
+                            <thead className="md:flex md:justify-around md:items-center dark:text-slate-400">
                                 <th>Egreso</th>
                                 <th>Monto</th>
                                 <th>Fecha</th>
@@ -155,10 +159,10 @@ const Balance = () => {
                                     return (
 
                                         <caption key={client._id}>
-                                            <tbody>
+                                            <tbody >
                                                 {client.details.map(detail => {
                                                     return (
-                                                        <tr key={detail._id}>
+                                                        <tr key={detail._id} >
                                                             <td className='profile-info__name'>
                                                                 {detail._id}
                                                             </td>
@@ -199,7 +203,7 @@ const Balance = () => {
                         </caption>
 
                         <caption>
-                            <thead>
+                            <thead className="flex justify-around dark:text-slate-400">
                                 <th>Factura</th>
                                 <th>Monto</th>
                                 <th>Fecha</th>
@@ -215,14 +219,14 @@ const Balance = () => {
                                             <tbody>
                                                 {client.details.map(detail => {
                                                     return (
-                                                        <tr key={detail._id}>
-                                                            <td className='profile-info__name'>
+                                                        <tr key={detail._id} className="md:flex ">
+                                                            <td className='profile-info__name md:flex md:min-w-96 md:justify-center'>
                                                                 {detail._id}
                                                             </td>
-                                                            <td className='profile-info__name'>
+                                                            <td className='profile-info__name md:flex md:min-w-96 md:justify-center'>
                                                                 {detail.amount}
                                                             </td>
-                                                            <td className='profile-info__name'>
+                                                            <td className='profile-info__name md:flex md:min-w-96 md:justify-center'>
                                                                 {moment(detail.created_at).format('DD-MM-YYYY HH:mm:ss')}
                                                             </td>
                                                         </tr>

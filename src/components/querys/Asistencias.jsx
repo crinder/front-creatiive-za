@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react'
-import DatePicker from "react-datepicker";
 import moment from "moment";
+import React, { useEffect, useState } from 'react';
+import Form from 'react-bootstrap/Form';
+import DatePicker from "react-datepicker";
 import Global from '../../helpers/Global';
 import { useAuth } from '../context/AuthContext';
-import Form from 'react-bootstrap/Form';
 
 const Asistencias = () => {
 
@@ -106,14 +106,15 @@ const Asistencias = () => {
 
 
     return (
-        <div>Consultar asistencias
+        <div className='content dark:border-slate-300/10'>
+            <h2 className="text-4xl font-bold mb-4 dark:text-slate-200">Consultar asistencias</h2>
 
             <div>
                 <form onSubmit={getData}>
 
 
-                    <label htmlFor="fecinic">Estatus factura</label>
-                    <Form.Select aria-label="Default select example" onChange={changeStatusInvoice}>
+                    <label htmlFor="fecinic" className="font-bold dark:text-slate-200">Estatus factura</label>
+                    <Form.Select aria-label="Default select example" onChange={changeStatusInvoice} className="shadow-lg w-11/12 py-8 md:py-3 px-6 text-xl font-semibold my-6 mx-3 dark:bg-slate-700 dark:border-none dark:text-slate-300">
                         {statusDes.length > 0 && statusDes.map(payment => {
 
                             return (
@@ -124,12 +125,15 @@ const Asistencias = () => {
                         }
                     </Form.Select>
 
-                    <label htmlFor="fecinic">Fecha desde</label>
+
+                    
+                    <label htmlFor="fecinic" className="font-bold mt-3 dark:text-slate-300">Fecha desde</label>
                     <DatePicker
                         selected={startDate}
                         onChange={(date) => setStartDate(date)}
                         //maxDate={new Date()}
                         dateFormat="dd/MM/yyyy"
+                        className="m-2 rounded py-2 px-3 shadow-sm dark:bg-slate-700 dark:border-none dark:text-slate-300"
                     />
 
                     <DatePicker
@@ -137,37 +141,40 @@ const Asistencias = () => {
                         onChange={(date) => setEndDate(date)}
                         //maxDate={new Date()}
                         dateFormat="dd/MM/yyyy"
+                        className="m-2 rounded py-2 px-3 shadow-sm dark:bg-slate-700 dark:border-none dark:text-slate-300"
                     />
-                    <button type="submit" className="btn_submit solid">Crear</button>
+                    
+                    <button type="submit" className="btn_submit solid mb-5">Crear</button>
                 </form>
             </div>
 
-            <div className='result__client'>
-                <div className="table-widget">
-                    <table>
-                        <caption>
-                            <span className="table-row-count"></span>
+            <div className='result__client flex justify-center '>
+                <div className="table-widget w-full dark:bg-slate-700 dark:border-none dark:text-slate-300">
+                    <table >
+                        <caption className="grid"> 
+                            <h2 className="text-3xl text-center font-bold dark:text-slate-300">Asistencias</h2>
+                            {/* <span className="table-row-count"></span> */}
                         </caption>
 
                         {clientInvoice.length > 0 && clientInvoice.map(client => {
 
                             return (
-                                <caption key={client._id}>
-                                    <thead key={client._id}>
+                                <caption key={client._id} className="grid grid-rows-2 table__body">
+                                    <thead key={client._id} className="dark:bg-slate-200 " >
                                         {client.clients.map(clientes => {
 
                                             return (
                                                 <tr key={clientes._id}>
-                                                    <th>{clientes.name}</th>
+                                                    <th className="text-xl font-bold ">{clientes.name}</th>
                                                 </tr>
                                             )
 
                                         })}
                                     </thead>
 
-                                    <tbody id="team-member-rows">
-                                        <tr>
-                                            <td className='profile-info__name'>
+                                    <tbody id="team-member-rows" className="">
+                                        <tr className="grid grid-cols-4 " >
+                                            <td className='profile-info__name '>
                                                 ID asistencia
                                             </td>
                                             <td className='profile-info__name'>
@@ -182,7 +189,7 @@ const Asistencias = () => {
                                         </tr>
                                         {client.asistencias.map(asistencia => {
                                             return (
-                                                <tr key={asistencia._id}>
+                                                <tr key={asistencia._id} className="grid grid-cols-4 dark:bg-slate-200">
                                                     <td className='profile-info__name'>
                                                         {asistencia._id}
                                                     </td>
@@ -213,7 +220,7 @@ const Asistencias = () => {
 
                         <tbody id="team-member-rows">
                         </tbody>
-                        <tfoot>
+                        <tfoot className="dark:bg-slate-700">
                             <tr>
                                 <td>
                                     <ul className="pagination">
