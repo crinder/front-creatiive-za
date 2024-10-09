@@ -69,8 +69,8 @@ const Nav = () => {
                                 <span className="tooltip__content">Asistencias</span>
                             </NavLink>
                         </li>
-
-                        <li>
+            
+                        <li>    
                             <div onClick={handleDropdownToggle}>
                                 <NavLink to="#" title="asistencias" className="nav__link" disabled>
                                     <FontAwesomeIcon icon={faClipboardUser} />
