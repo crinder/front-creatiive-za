@@ -13,7 +13,7 @@ export const ClientsIcon = () => {
         stroke-width="2"
         stroke-linecap="round"
         stroke-linejoin="round"
-        className="icon icon-tabler icons-tabler-outline icon-tabler-users-group dark:hover:text-slate-100"
+        className="icon icon-tabler icons-tabler-outline icon-tabler-users-group hover:text-blue-600 dark:hover:text-slate-100"
       >
         <path stroke="none" d="M0 0h24v24H0z" fill="none" />
         <path d="M10 13a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />

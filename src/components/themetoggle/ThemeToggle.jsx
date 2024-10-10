@@ -44,9 +44,9 @@ export const ThemeToggle = () => {
   return (
     <>
     <button
-    className='text-slate-100'
+    className='absolute top-2 right-2 border rounded-3xl p-3 text-xl font-semibold border-gray-300 dark:!border-slate-300/10 text-gray-800 dark:text-slate-400 '
      onClick={handleTheme}>
-    Cambiar tema
+    Light/Dark
     </button>
     </>
   )
