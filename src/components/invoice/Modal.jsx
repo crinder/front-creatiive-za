@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 import Global from '../../helpers/Global';
 import { useAuth } from '../context/AuthContext';
-import Form from 'react-bootstrap/Form';
 
 
 const Modals = ({ show, handleClose, setAceptar, params }) => {
@@ -121,16 +121,16 @@ const Modals = ({ show, handleClose, setAceptar, params }) => {
             backdrop="static"
             keyboard={false}
         >
-            <Modal.Header closeButton>
-                <Modal.Title>{params.header}</Modal.Title>
+            <Modal.Header closeButton className='dark:bg-slate-800 '>
+                <Modal.Title className='text-2xl dark:text-slate-50'>{params.header}</Modal.Title>
             </Modal.Header>
-            <Modal.Body>
+            <Modal.Body className='dark:bg-slate-800 dark:text-slate-300 dark:border-slate-300/10'>
                 {params.body}
 
                 {isCob &&
-                    <div>
-                        <label htmlFor="fecinic">Forma de pago</label>
-                        <Form.Select aria-label="Default select example" onChange={changeStatusInvoice}>
+                    <div >
+                        <label htmlFor="fecinic" className='my-2 text-capitalize text-slate-100'>Forma de pago</label>
+                        <Form.Select aria-label="Default select example" onChange={changeStatusInvoice} className='shadow-lg w-11/12 py-3 md:py-3 px-6 text-xl font-semibold my-6 mx-3 dark:bg-slate-700 dark:border-none dark:text-slate-300'>
                             {statusDes.length > 0 && statusDes.map(payment => {
 
                                 return (
@@ -147,7 +147,7 @@ const Modals = ({ show, handleClose, setAceptar, params }) => {
 
 
             </Modal.Body>
-            <Modal.Footer>
+            <Modal.Footer className='dark:bg-slate-800'>
                 <Button variant="secondary" onClick={handleClose}>
                     Cerrar
                 </Button>

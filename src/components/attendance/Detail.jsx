@@ -1,5 +1,5 @@
-import React from 'react'
-import { useLocation,useNavigate } from 'react-router-dom';
+import React from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const Detail = () => {
 
@@ -19,7 +19,7 @@ const Detail = () => {
 
 
     return (
-        <div>
+        <div className='bg-slate-700'>
 
             <ul>
 

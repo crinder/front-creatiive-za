@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import Form from 'react-bootstrap/Form';
-import { useAuth } from '../context/AuthContext';
-import Global from '../../helpers/Global';
 import useform from '../../assets/hooks/useform';
+import Global from '../../helpers/Global';
+import { useAuth } from '../context/AuthContext';
 import Table from './Table';
 
 const Others = () => {
@@ -83,16 +83,16 @@ const Others = () => {
     }
 
     return (
-        <div>
+        <div className='content dark:border-slate-300/10'>
             <header>
                 <div>
-                    <span>Otros pagos</span>
+                    <span className='text-4xl font-bold dark:text-slate-200'>Otros pagos</span>
                 </div>
             </header>
 
             <section>
                 <form onSubmit={register}>
-                    <Form.Select aria-label="Default select example" onChange={changedMethod}>
+                    <Form.Select aria-label="Default select example" onChange={changedMethod} className="shadow-lg w-11/12 py-8 md:py-3 px-6 text-2xl md:text-xl font-semibold my-6 mx-3 dark:bg-slate-700 dark:border-none dark:text-slate-300">
                         <option disabled selected>Seleccione un pago</option>
                         {descrip.length > 0 && descrip.map(payment => {
 
@@ -106,21 +106,21 @@ const Others = () => {
                         }
                     </Form.Select>
 
-                    <div className='forms__input'>
-                        <label htmlFor="amount" className='label__form'>Monto</label>
-                        <input type="text" name='amount' className='input__form' onChange={changed} />
+                    <div className='flex flex-col my-2'>
+                        <label htmlFor="amount" className='label__form dark:text-slate-300'>Monto</label>
+                        <input type="text" name='amount' className='rounded py-3 px-3  dark:bg-slate-700 dark:border-none dark:text-slate-300' onChange={changed} />
                     </div>
 
-                    <div className='forms__input'>
-                        <label htmlFor="observation" className='label__form'>Observación</label>
-                        <input type="text" name='observation' className='input__form' onChange={changed} />
+                    <div className='flex flex-col my-2'>
+                        <label htmlFor="observation" className='label__form dark:text-slate-300'>Observación</label>
+                        <input type="text" name='observation' className='rounded py-3 px-3  dark:bg-slate-700 dark:border-none dark:text-slate-300' onChange={changed} />
                     </div>
-                    <button type="submit" className="btn_submit solid">Crear</button>
+                    <button type="submit" className="btn_submit solid my-8">Crear</button>
                 </form>
             </section>
 
-            <section>
-                    <Table otros={otros} setOtros={setOtros} />
+            <section >
+                    <Table otros={otros} setOtros={setOtros}  />
             </section>
         </div>
     )

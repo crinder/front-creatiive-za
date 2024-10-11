@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
-import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
+import Modal from 'react-bootstrap/Modal';
 import Global from '../../helpers/Global';
 import { useAuth } from '../context/AuthContext';
 
@@ -86,12 +86,12 @@ const Modals = ({ show, handleClose, setAceptar, clientesAct = [] }) => {
             backdrop="static"
             keyboard={false}
         >
-            <Modal.Header closeButton>
-                <Modal.Title>Crear la asistencia</Modal.Title>
+            <Modal.Header closeButton className='dark:bg-slate-800 '>
+                <Modal.Title className='text-2xl dark:text-slate-50'>Crear la asistencia</Modal.Title>
             </Modal.Header>
-            <Modal.Body>
+            <Modal.Body className='dark:bg-slate-800 dark:text-slate-300 dark:border-slate-300/10'>
                 Esta seguro de crear las asistencias?
-                <ul>
+                <ul className='my-2 text-capitalize text-slate-100'>
 
                     {clientesAct.length > 0 && clientesAct.map(client => {
                         return (
@@ -106,7 +106,7 @@ const Modals = ({ show, handleClose, setAceptar, clientesAct = [] }) => {
                 </ul>
 
                 <form className='form__control'>
-                    <Form.Select aria-label="Default select example" onChange={changedCantidad}>
+                    <Form.Select aria-label="Default select example" onChange={changedCantidad} className='shadow-lg w-11/12 py-3 md:py-3 px-6 text-xl font-semibold my-6 mx-3 dark:bg-slate-700 dark:border-none dark:text-slate-300'>
                         {cantidad.length > 0 && cantidad.map(payment => {
 
                             return (
@@ -123,7 +123,7 @@ const Modals = ({ show, handleClose, setAceptar, clientesAct = [] }) => {
 
 
             </Modal.Body>
-            <Modal.Footer>
+            <Modal.Footer className='dark:bg-slate-800'>
                 <Button variant="secondary" onClick={handleClose}>
                     Cerrar
                 </Button>

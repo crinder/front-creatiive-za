@@ -1,9 +1,9 @@
-import React, { useContext } from 'react'
-import useform from '../../assets/hooks/useform'
+import { ErrorMessage, Field, Form, Formik } from 'formik';
+import React from 'react';
+import * as Yup from 'yup';
+import useform from '../../assets/hooks/useform';
 import Global from '../../helpers/Global';
 import { useAuth } from '../context/AuthContext';
-import * as Yup from 'yup';
-import {Formik,Form,Field,ErrorMessage} from 'formik';
 
 
 const validationSchema = Yup.object({
@@ -66,66 +66,69 @@ const Clients = () => {
         >
         
         {({ handleChange }) => (
-        <div className='content'>
+        <div className='content dark:border-slate-300/10'>
 
             <div className='client__control'>
 
                 <Form className='form_control'>
-                    <div className='form__clients'>
+                    <div className='w-full'>
 
-                        <div className='form__title'>
-                            <span className='header__tittle'>Crear cliente</span>
+                        <div className='form__title mb-4'>
+                            <span className='text-4xl font-bold dark:text-slate-100'>Crear cliente</span>
                         </div>
 
                         <section className='clients__forms'>
-
-                            <div className='forms__input'>
-                                <label htmlFor="name" className='label__form'>Nombre</label>
-                                <Field type="text" name='name' className='input__form' onChange={(e) => { handleChange(e); changed(e); }}/>
+                        <div class="grid gap-6 mb-6 md:grid-cols-2">
+                            <div className=''>
+                                <label htmlFor="name" className='block mb-2 text-1xl font-medium text-gray-900 dark:text-white'>Nombre</label>
+                                <Field type="text" name='name' className='bg-gray-50 border border-gray-300 text-gray-900 text-1xl rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:!border-none !outline-none dark:placeholder-gray-400  dark:text-white  dark:focus:ring-blue-500 dark:focus:border-blue-500' onChange={(e) => { handleChange(e); changed(e); }}/>
                                 <ErrorMessage name="name" component={CustomErrorMessage} />
                             </div>
-                            <div className='forms__input'>
-                                <label htmlFor="surname" className='label__form'>Apellido</label>
-                                <Field type="text" name='surname' className='input__form' onChange={(e) => { handleChange(e); changed(e); }} />
+                            <div className=''>
+                                <label htmlFor="surname" className='block mb-2 text-1xl font-medium text-gray-900 dark:text-white'>Apellido</label>
+                                <Field type="text" name='surname' className='bg-gray-50 border border-gray-300 text-gray-900 text-1xl rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:!border-none !outline-none dark:placeholder-gray-400  dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500' onChange={(e) => { handleChange(e); changed(e); }} />
                                 <ErrorMessage name="surname"component={CustomErrorMessage}/>
                             </div>
 
-                            <div className='forms__input'>
-                                <label htmlFor="fec_nac" className='label__form'>Fecha nacimiento</label>
-                                <Field type="text" name='fec_nac' className='input__form'onChange={(e) => { handleChange(e); changed(e); }}/>
+                            <div className=''>
+                                <label htmlFor="fec_nac" className='block mb-2 text-1xl font-medium text-gray-900 dark:text-white'>Fecha nacimiento</label>
+                                <Field type="text" name='fec_nac' className='bg-gray-50 border border-gray-300 text-gray-900 text-1xl rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:!border-none !outline-none dark:placeholder-gray-400  dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'onChange={(e) => { handleChange(e); changed(e); }}/>
                                 <ErrorMessage name="fec_nac" component={CustomErrorMessage}/>
                             </div>
 
-                            <div className='forms__input'>
-                                <label htmlFor="nationality" className='label__form'>Nacionalidad</label>
-                                <Field type="text" name='nationality' className='input__form' onChange={(e) => { handleChange(e); changed(e); }}/>
+                            <div className=''>
+                                <label htmlFor="nationality" className='block mb-2 text-1xl font-medium text-gray-900 dark:text-white'>Nacionalidad</label>
+                                <Field type="text" name='nationality' className='bg-gray-50 border border-gray-300 text-gray-900 text-1xl rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:!border-none !outline-none dark:placeholder-gray-400  dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500' onChange={(e) => { handleChange(e); changed(e); }}/>
                             </div>
 
-                            <div className='forms__input'>
-                                <label htmlFor="identification" className='label__form'>Cedula</label>
-                                <input type="text" name='identification' className='input__form' onChange={changed}/>
+                            <div className=''>
+                                <label htmlFor="identification" className='block mb-2 text-1xl font-medium text-gray-900 dark:text-white'>Cedula</label>
+                                <input type="text" name='identification' className='bg-gray-50 border border-gray-300 text-gray-900 text-1xl rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:!border-none !outline-none dark:placeholder-gray-400  dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500' onChange={changed}/>
                             </div>
 
-                            <div className='forms__input'>
-                                <label htmlFor="represent" className='label__form'>Representante</label>
-                                <Field type="text" name='represent' className='input__form' onChange={(e) => { handleChange(e); changed(e); }} />
+                            <div className=''>
+                                <label htmlFor="represent" className='block mb-2 text-1xl font-medium text-gray-900 dark:text-white'>Representante</label>
+                                <Field type="text" name='represent' className='bg-gray-50 border border-gray-300 text-gray-900 text-1xl rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:!border-none !outline-none dark:placeholder-gray-400  dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500' onChange={(e) => { handleChange(e); changed(e); }} />
                                 <ErrorMessage name="represent" component={CustomErrorMessage}/>
                             </div>
-
-                            <div className='forms__input'>
-                                <label htmlFor="email" className='label__form'>Email</label>
-                                <Field type="text" name='email' className='input__form' onChange={(e) => { handleChange(e); changed(e); }}/>
+                            </div>
+                        <div className='mb-6'>
+                            <div className=''>
+                                <label htmlFor="email" className='block mb-2 text-1xl font-medium text-gray-900 dark:text-white'>Email</label>
+                                <Field type="text" name='email' className='bg-gray-50 border border-gray-300 text-gray-900 text-1xl rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:!border-none !outline-none dark:placeholder-gray-400  dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500' onChange={(e) => { handleChange(e); changed(e); }}/>
                                 <ErrorMessage name="email" component={CustomErrorMessage}/>
                             </div>
-
-                            <div className='forms__input'>
-                                <label htmlFor="phone" className='label__form'>Telefono</label>
-                                <Field type="text" name='phone' className='input__form' onChange={(e) => { handleChange(e); changed(e); }}/>
+                        </div>
+                        <div className='mb-6'>
+                            <div className=''>
+                                <label htmlFor="phone" className='block mb-2 text-1xl font-medium text-gray-900 dark:text-white'>Telefono</label>
+                                <Field type="text" name='phone' className='bg-gray-50 border border-gray-300 text-gray-900 text-1xl rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:!border-none !outline-none dark:placeholder-gray-400  dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500' onChange={(e) => { handleChange(e); changed(e); }}/>
                                 <ErrorMessage name="phone" component={CustomErrorMessage}/>
                             </div>
-
+                        </div>
+                        <div className='flex items-start mb-6'>
                             <button type="submit"  className="btn_submit solid">Crear</button>
-
+                        </div>
                         </section>
 
                     </div>

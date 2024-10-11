@@ -1,10 +1,10 @@
-import { React, useState,useEffect,useLayoutEffect } from 'react'
-import Find from './Find';
+import { React, useState } from 'react';
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
-import InvoicesTab from './InvoicesTab';
+import { useLocation } from 'react-router-dom';
 import { useClient } from '../context/AuthClient';
-import { useLocation  } from 'react-router-dom';
+import Find from './Find';
+import InvoicesTab from './InvoicesTab';
 
 
 const Invoices = () => {
@@ -24,7 +24,7 @@ const Invoices = () => {
   };
 
   return (
-    <div className='content__header'>
+    <div className='content dark:text-slate-100 dark:border-slate-300/10'>
       <Find title={title} clientesAct={clientesAct} setClientesAct={setClientesAct} isFocused={isFocused} setIsFocuset={setIsFocuset} ind={ind} />
       <div className={`content__invoice ${isFocused ? 'opacity__element' : ''}`} >
 
@@ -33,11 +33,11 @@ const Invoices = () => {
             <Tab eventKey="cobradas" title="Cobradas" >
               <InvoicesTab tabkey={selectTab} clients={clientesAct} clientesAct={clientesAct} />
             </Tab>
-            <Tab eventKey="pendiente" title="Pendientes">
+            <Tab eventKey="pendiente" title="Pendientes" >
               <InvoicesTab tabkey={selectTab} clients={clientesAct} clientesAct={clientesAct} />
             </Tab>
             <Tab eventKey="canceladas" title="Canceladas">
-              <InvoicesTab tabkey={selectTab} clients={clientesAct} clientesAct={clientesAct} />
+              <InvoicesTab tabkey={selectTab} clients={clientesAct} clientesAct={clientesAct} className='bg-black' />
             </Tab>
           </Tabs>
         </section>

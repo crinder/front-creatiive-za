@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react'
-import Toasts from '../utils/Toasts';
-import { useClient } from '../context/AuthClient';
+import React, { useEffect, useState } from 'react';
+import Form from 'react-bootstrap/Form';
 import useform from '../../assets/hooks/useform';
 import Global from '../../helpers/Global';
+import { useClient } from '../context/AuthClient';
 import { useAuth } from '../context/AuthContext';
-import Form from 'react-bootstrap/Form';
+import Toasts from '../utils/Toasts';
 
 
 const Create = () => {
@@ -107,7 +107,7 @@ const Create = () => {
 
     return (
 
-        <div className='content'>
+        <div className='content dark:border-slate-300/10'>
 
             {clientes.length > 0 && clientes.map(client => {
 

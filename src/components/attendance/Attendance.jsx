@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react'
-import Find from '../invoice/Find'
+import React, { useEffect, useState } from 'react';
 import Accordion from 'react-bootstrap/Accordion';
-import { useClient } from '../context/AuthClient';
-import HeaderCollapse from './HeaderCollapse';
-import BodyCollapse from './BodyCollapse';
 import Global from '../../helpers/Global';
+import { useClient } from '../context/AuthClient';
 import { useAuth } from '../context/AuthContext';
+import Find from '../invoice/Find';
+import BodyCollapse from './BodyCollapse';
+import HeaderCollapse from './HeaderCollapse';
 import Modals from './Modals';
 
 const Attendance = () => {
@@ -106,7 +106,7 @@ const Attendance = () => {
     }
 
     return (
-        <div className='content__header'>
+        <div className='content dark:border-slate-300/10 dark:text-slate-200'>
             <Find title={title} clientesAct={clientesAct} setClientesAct={setClientesAct} isFocused={isFocused} setIsFocuset={setIsFocuset} />
 
             <div className={`content__invoice ${isFocused ? 'opacity__element' : ''}`} >
