@@ -1,10 +1,11 @@
-import React, { useState } from 'react'
+import { useState } from 'react';
 
 const useform = (initialObj) => {
 
     const [form, setForm] = useState(initialObj);
+    const [inputValue, setInputValue] = useState('')
 
-    const changed = (eventOrDate,name) =>{
+    const changed = (eventOrDate,name,e) =>{
 
         if(eventOrDate instanceof Date){
             setForm({
@@ -22,11 +23,16 @@ const useform = (initialObj) => {
                 [name]:selectvalues
             })
         }
+            
+        
     }
 
     return {
         form,
-        changed
+        changed,
+        inputValue,
+        
+
     }
 }
 

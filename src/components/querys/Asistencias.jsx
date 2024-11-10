@@ -66,6 +66,8 @@ const Asistencias = () => {
         let fecInicio = moment(startDate);
         fecInicio = fecInicio.format('DD/MM/YYYY');
 
+        console.log(fecInicio);
+
         let fecFin = moment(endDate);
         fecFin = fecFin.format('DD/MM/YYYY');
 
@@ -160,12 +162,12 @@ const Asistencias = () => {
 
                             return (
                                 <caption key={client._id} className="grid grid-rows-2 table__body">
-                                    <thead key={client._id} className="dark:bg-slate-200 " >
+                                    <thead key={client._id} className="dark:bg-slate-700" >
                                         {client.clients.map(clientes => {
 
                                             return (
                                                 <tr key={clientes._id}>
-                                                    <th className="text-xl font-bold ">{clientes.name}</th>
+                                                    <th className="text-xl dark:text-slate-200 font-bold ">{clientes.name}</th>
                                                 </tr>
                                             )
 
@@ -173,7 +175,7 @@ const Asistencias = () => {
                                     </thead>
 
                                     <tbody id="team-member-rows" className="">
-                                        <tr className="grid grid-cols-4 " >
+                                        <tr className="grid grid-cols-4 dark:text-slate-200" >
                                             <td className='profile-info__name '>
                                                 ID asistencia
                                             </td>
@@ -189,7 +191,7 @@ const Asistencias = () => {
                                         </tr>
                                         {client.asistencias.map(asistencia => {
                                             return (
-                                                <tr key={asistencia._id} className="grid grid-cols-4 dark:bg-slate-200">
+                                                <tr key={asistencia._id} className="grid grid-cols-4 dark:bg-slate-700 dark:text-slate-200">
                                                     <td className='profile-info__name'>
                                                         {asistencia._id}
                                                     </td>

@@ -34,6 +34,7 @@
   --odd-row: #f6f9ff;
   --gray-background: #edeef1;
   --gray-mid: #f1f2f6;
+  /* --animate-duration: .4s; */
 }
 
 * {
@@ -1112,14 +1113,19 @@ form.form__signup {
 /*table*/
 
 .table-widget {
-  border-radius: 1rem;
   background: var(--table-background);
   padding: 1.5rem;
-  border: 2px solid var(--gray-background);
+  
   box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px,
     rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
   text-align: left;
   overflow-x: auto;
+}
+
+.dark .table-widget{
+  background-color: #0f172a;
+  color: #e2e8f0;
+  
 }
 
 .table-widget table {
@@ -1140,13 +1146,10 @@ form.form__signup {
   /* color: var(--gray); */
 }
 
-.table-widget thead {
-  border-top: 2px solid var(--gray-background);
-}
 
 .table-widget tfoot {
   margin-top: 1rem;
-  border-top: 2px solid var(--gray-background);
+ 
 }
 
 .table-widget td {
@@ -1163,8 +1166,12 @@ form.form__signup {
   background: var(--odd-row);
 }
 
-.table-widget tbody tr:hover {
-  background: #e2ecff;
+.dark .table-widget tbody tr:nth-child(odd) {
+  background-color: #1e293b;
+}
+
+.dark.table-widget tbody tr:hover {
+  background: #1e293b;
 }
 
 .table-row-count {
@@ -1511,6 +1518,41 @@ form.form__signup {
     opacity: 0;
   }
 }
+
+ .fade-enter {
+  opacity: 0;
+  transform: translateY(20px);
+}
+.fade-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 300ms, transform 300ms;
+}
+.fade-exit {
+  opacity: 1;
+} 
+.fade-exit-active {
+  display: none;
+} 
+
+
+.dark .accordion-button:not(.collapsed) {
+  color: #e2e8f0;
+  background-color: #334155;
+  box-shadow: inset 0 calc(-1* var(--bs-accordion-border-width)) 0 var(--bs-accordion-border-color);
+}
+
+.accordion-body {
+ padding: 0;
+ border: none;
+}
+
+.dark .accordion-item {
+  
+  border: 1px solid #1b1f2cab;
+}
+
+
 
 @tailwind base;
 @tailwind components;

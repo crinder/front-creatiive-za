@@ -1,9 +1,10 @@
 import { ErrorMessage, Field, Form, Formik } from 'formik';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import * as Yup from 'yup';
 import useform from '../../assets/hooks/useform';
 import Global from '../../helpers/Global';
 import { useAuth } from '../context/AuthContext';
+import Alerts from '../utils/Alerts';
 
 
 const validationSchema = Yup.object({
@@ -26,14 +27,23 @@ const CustomErrorMessage = ({ children }) => (
 
 const Clients = () => {
 
+    const [showAlert, setShowAlert] = useState(false)
+
+    const handleAlert = () => {
+        setShowAlert(true);
+        setTimeout(() => {
+            setShowAlert(false);
+        },5000) 
+    }
+
     const {token,isLoading} = useAuth();
 
-    const {form,changed} = useform({});
+    const {values,changed} = useform({});
 
-    const createCliente = async ()  => {
+    const createCliente = async (values)  => {
         
-        const body = form;    
-        
+        const body = values;    
+        console.log(body)
 
         const request = await fetch(Global.url+'client/register',{
             method: 'POST',
@@ -49,19 +59,57 @@ const Clients = () => {
 
         if(data.status == 'success'){
             console.log('guardado');
+            handleAlert();
         }else{
             console.log('error');
         }
 
     }
+
+    const [statusDes, setStatusDes] = useState([]);
+
+    useEffect(() => {
+        if(token){
+        getMethod('nationality');
+        }
+    }, [token]);
+
+
+    const getMethod = async (grupo) => {
+
+        let form = {
+            group: grupo,
+            status: 'ACT'
+        }
+
+
+        const request = await fetch(Global.url + 'description/filter', {
+            method: 'POST',
+            body: JSON.stringify(form),
+            headers: {
+                'Content-Type': 'application/json',
+                "authorization": token
+            }
+        });
+
+        const data = await request.json();
+
+        if (data.status == 'success') {
+
+            setStatusDes(data.findStored);
+            
+
+        }}
+
+        const message = 'Se Creó el Cliente'
     
     
     return (
         <Formik 
-        initialValues={{ name: '', surname: '',fec_nac: '', email: '',identification: '',represent: '', phone: ''}}
+        initialValues={{ name: '', surname: '',fec_nac: '', email: '',identification: '',represent: '', phone: '', nationality: ''}}
         validationSchema={validationSchema}
         onSubmit={(values) => {
-            createCliente();
+            createCliente(values);
         }}
         >
         
@@ -98,12 +146,18 @@ const Clients = () => {
 
                             <div className=''>
                                 <label htmlFor="nationality" className='block mb-2 text-1xl font-medium text-gray-900 dark:text-white'>Nacionalidad</label>
-                                <Field type="text" name='nationality' className='bg-gray-50 border border-gray-300 text-gray-900 text-1xl rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:!border-none !outline-none dark:placeholder-gray-400  dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500' onChange={(e) => { handleChange(e); changed(e); }}/>
+                                <Field as='select' name='nationality' className='bg-gray-50 border border-gray-300 text-gray-900 text-1xl rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:!border-none !outline-none dark:placeholder-gray-400  dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'>
+                                <option value='' disabled>Seleccione Su Nacionalidad</option>
+                                {statusDes.map(nationality => (
+                                            <option selected key={nationality._id} value={nationality.code}>{nationality.descrip}</option>
+                                        
+                                        ))}
+                                </Field>
                             </div>
 
                             <div className=''>
                                 <label htmlFor="identification" className='block mb-2 text-1xl font-medium text-gray-900 dark:text-white'>Cedula</label>
-                                <input type="text" name='identification' className='bg-gray-50 border border-gray-300 text-gray-900 text-1xl rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:!border-none !outline-none dark:placeholder-gray-400  dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500' onChange={changed}/>
+                                <Field type="text" name='identification' className='bg-gray-50 border border-gray-300 text-gray-900 text-1xl rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:!border-none !outline-none dark:placeholder-gray-400  dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500' onChange={(e) => { handleChange(e); changed(e);}}/>
                             </div>
 
                             <div className=''>
@@ -126,6 +180,7 @@ const Clients = () => {
                                 <ErrorMessage name="phone" component={CustomErrorMessage}/>
                             </div>
                         </div>
+                        {showAlert === true ? <Alerts message={message} /> : null}
                         <div className='flex items-start mb-6'>
                             <button type="submit"  className="btn_submit solid">Crear</button>
                         </div>
