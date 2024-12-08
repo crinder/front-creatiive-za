@@ -7,6 +7,7 @@ import Find from '../invoice/Find';
 import BodyCollapse from './BodyCollapse';
 import HeaderCollapse from './HeaderCollapse';
 import Modals from './Modals';
+import Alerts from '../utils/Alerts';
 
 const Attendance = () => {
 
@@ -141,7 +142,7 @@ const Attendance = () => {
 
                 </section>
             </div>
-
+            <Alerts variant={'danger'} message={'alerta mensaje'} />
             <div className='div__espacio'>
                 <span class="button__span" onClick={handleShow}>
                     Crear asistencia

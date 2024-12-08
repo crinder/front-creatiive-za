@@ -13,7 +13,7 @@ export const AttendIcon = () => {
         stroke-width="2"
         stroke-linecap="round"
         stroke-linejoin="round"
-        className="icon icon-tabler icons-tabler-outline icon-tabler-clipboard-check dark:hover:text-slate-100"
+        className="icon icon-tabler icons-tabler-outline icon-tabler-clipboard-check hover:text-blue-600 dark:hover:text-slate-100"
       >
         <path stroke="none" d="M0 0h24v24H0z" fill="none" />
         <path d="M9 5h-2a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-12a2 2 0 0 0 -2 -2h-2" />

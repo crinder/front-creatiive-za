@@ -1,13 +1,14 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 //import Image1 from '../../assets/img/undraw_maker_launch_re_rq81.svg'
 import { faLock, faUser } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useNavigate } from 'react-router-dom';
+import { Navigate, Outlet, useNavigate } from 'react-router-dom';
 import useForm from '../../assets/hooks/useform';
 import Image1 from '../../assets/img/image-1.png';
 import Image2 from '../../assets/img/image-2.png';
 import Global from '../../helpers/Global';
 import Alerts from '../utils/Alerts';
+
 
 const login = () => {
 
@@ -15,7 +16,7 @@ const login = () => {
     const [saved, setSaved] = useState('');
     const [alertMessage, setAlertMessage] = useState('');
     const navigate = useNavigate();
-
+    
 
     const loginUser = async (e) => {
 
@@ -24,8 +25,6 @@ const login = () => {
         setSaved("");
         setAlertMessage('');
         const userLoging = form;
-
-        console.log(form);
 
         const request = await fetch(Global.url + 'users/login', {
             method: 'POST',
@@ -43,6 +42,7 @@ const login = () => {
             setSaved('success');
             setAlertMessage('Login correcto');
             navigate('/creative-za/home');
+            navigate(0);
         } else {
             setSaved('danger');
             setAlertMessage('Ha ocurrido un error, por favor valida el usuario y contraseña')
@@ -50,17 +50,16 @@ const login = () => {
 
     }
 
-
-
     return (
+
         <div className="container">
             <div className="container__form">
                 <div className="signin-signup">
                     <form action="" className="form__signin" onSubmit={loginUser}>
                         <h2 className="signin__title">Bienvenido a Creative ZA</h2>
-                            <div className='signin__alerta'>
-                            { setSaved && <Alerts variant={saved} message={alertMessage} />}
-                            </div>
+                        <div className='signin__alerta'>
+                            {setSaved && <Alerts variant={saved} message={alertMessage} />}
+                        </div>
                         <div className="signin__input">
                             <FontAwesomeIcon className='signin__input--icon' icon={faUser} />
                             <input className="input__control" type="text" placeholder="Username" onChange={changed} name='cod_user' />
@@ -109,7 +108,6 @@ const login = () => {
                 </div>
             </div>
         </div>
-
     )
 }
 
