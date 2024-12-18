@@ -110,7 +110,7 @@ const Others = () => {
                 initialValues={{amount: '', observation: ''}}
                 >
                     <Form>
-                    <Form.Select aria-label="Default select example" onChange={changedMethod} className="shadow-lg w-11/12 py-8 md:py-3 px-6 text-2xl md:text-xl font-semibold my-6 mx-3 dark:bg-slate-700 dark:border-none dark:text-slate-300">
+                    <Form.Select aria-label="Default select example" onChange={changedMethod} className="shadow-lg w-11/12 py-6 md:py-3 px-6 text-2xl md:text-xl font-semibold my-6 mx-3 dark:bg-slate-700 dark:border-none dark:text-slate-300">
                         <option disabled selected>Seleccione un pago</option>
                         {descrip.length > 0 && descrip.map(payment => {
 
@@ -135,7 +135,7 @@ const Others = () => {
                         <Field type="text" name='observation' className='rounded py-3 px-3  dark:bg-slate-700 dark:border-none dark:text-slate-300' onChange={changed} />
                         <ErrorMessage name="observation"component={CustomErrorMessage}/>
                     </div>
-                    <button type="submit" className="btn_submit solid my-8">Crear</button>
+                    <button type="submit" className="button solid my-8">Crear</button>
                     </Form>
                 </Formik>
             </section>

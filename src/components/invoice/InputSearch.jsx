@@ -5,7 +5,7 @@ export const InputSearch = ({changeInput, handleBlur, handleFocus}) => {
     <>
       <input
         type="input"
-        className="input shadow-lg  px-6 py-8 md:py-3 rounded-xl w-56 transition-all outline-none dark:bg-slate-600 dark:text-slate-400 dark:placeholder:text-slate-500"
+        className="input shadow-lg  px-6 py-8 md:py-3 rounded-xl w-56 transition-all outline-none dark:bg-slate-700 dark:text-slate-400 dark:placeholder:text-slate-500"
         placeholder="Ingresa un Cliente..."
         onChange={changeInput}
         onBlur={handleBlur}

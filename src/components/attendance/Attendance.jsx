@@ -158,12 +158,18 @@ const Attendance = () => {
                 </section>
             </div>
 
+            <div className='my-10'>
+
+
             {
                 showAlert === true ? <Alerts message={message}/> : null
-
+                
             }
+            </div>
+
+            
             <div className='div__espacio'>
-                <span class="button__span" onClick={handleShow}>
+                <span class="button" onClick={handleShow}>
                     Crear asistencia
                 </span>
             </div>

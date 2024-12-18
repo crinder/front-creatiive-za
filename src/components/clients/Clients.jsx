@@ -1,5 +1,5 @@
 import { ErrorMessage, Field, Form, Formik } from 'formik';
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import * as Yup from 'yup';
 import useform from '../../assets/hooks/useform';
 import Global from '../../helpers/Global';
@@ -181,8 +181,8 @@ const Clients = () => {
                             </div>
                         </div>
                         {showAlert === true ? <Alerts message={message} /> : null}
-                        <div className='flex items-start mb-6'>
-                            <button type="submit"  className="btn_submit solid">Crear</button>
+                        <div className='flex items-start md:items-center'>
+                            <button type="submit"  className=" button">Crear</button>
                         </div>
                         </section>
 

@@ -106,7 +106,7 @@ const Balance = () => {
                 <form onSubmit={getData}>
 
                     <label htmlFor="fecinic" className="font-bold dark:text-slate-200">Filtrar</label>
-                    <Form.Select  aria-label="Default select example" onChange={changeStatusInvoice} className="shadow-lg w-11/12 py-8 md:py-3 px-6 text-xl font-semibold my-6 mx-3 dark:bg-slate-700 dark:border-none dark:text-slate-300">
+                    <Form.Select  aria-label="Default select example" onChange={changeStatusInvoice} className="shadow-lg w-11/12 py-3 px-6 text-xl font-semibold my-6 mx-3 dark:bg-slate-700 dark:border-none dark:text-slate-300">
                         {statusDes.length > 0 && statusDes.map(payment => {
 
                             return (
@@ -133,20 +133,20 @@ const Balance = () => {
                         dateFormat="dd/MM/yyyy"
                         className="m-2 rounded py-2 px-3 shadow-sm dark:bg-slate-700 dark:border-none dark:text-slate-300"
                     />
-                    <button type="submit" className="btn_submit solid mb-5">Buscar</button>
+                    <button type="submit" className="button solid mb-5">Buscar</button>
                 </form>
             </div>
 
             <div className='result__client mx-auto md:flex md:justify-center'>
                 <div className="table-widget mx-auto md:w-full dark:bg-slate-700 dark:border-none dark:text-slate-300">
-                    <table>
+                    <table className="w-full">
                         <caption>
                         <h2 className="text-3xl text-center font-bold dark:text-slate-300">Balance</h2>
                         {/* <span className="table-row-count"></span>  */}
                         </caption>
 
                         <caption>
-                            <thead className="md:flex md:justify-around md:items-center dark:text-slate-400">
+                            <thead className="flex justify-around md:items-center dark:text-slate-400">
                                 <th>Egreso</th>
                                 <th>Monto</th>
                                 <th>Fecha</th>

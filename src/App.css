@@ -37,6 +37,41 @@
   /* --animate-duration: .4s; */
 }
 
+/* Utilidades */
+
+.button {
+  display: block;
+  padding: 1.5rem 7.5rem;
+  border-radius: 15px;
+  background: #397dec;
+  color: #f8fafc;
+  font-weight: 700;
+  margin: 1.5rem auto;
+  cursor: pointer;
+  text-align: center;
+  transition: background 100ms ease-in;
+}
+.button:hover{
+  background: #306ccc;
+}
+
+.dark .button{
+  background: #134b95;
+  transition: background 100ms ease-in;
+}
+
+.dark .button:hover{
+  background: #0f4080;
+}
+
+@media (max-width: 768px) {
+  .button {
+    margin: 1.5rem auto;
+    width: 100%;
+  }
+}
+
+
 * {
   margin: 0;
   padding: 0;
@@ -296,7 +331,7 @@ form.form__signup {
 .content {
   width: 98%;
   height: fit-content;
-  padding: 4rem;
+  padding: 5rem;
   margin: 1rem auto;
   border: 1px solid #dddddd;
   border-radius: 10px;
@@ -383,8 +418,8 @@ form.form__signup {
 
 .grid__container {
   display: grid;
-  /* max-height: 100vh; */
-  grid-template-columns: 0.25fr 1fr;
+  min-height: 100vh;
+  grid-template-columns: 0.14fr 1fr;
   grid-template-areas: "header header" "sidebar main " "footer footer";
   z-index: 1;
   position: relative;
@@ -1006,7 +1041,7 @@ form.form__signup {
 
 .client__control {
   width: 100%;
-  margin: 0 auto 10rem;
+  margin: 0 auto ;
 }
 .forms__input {
   display: flex;
@@ -1345,6 +1380,12 @@ form.form__signup {
   margin-right: 1rem;
 }
 
+/* Bottom Nav */
+
+.nav__titles{
+  position: absolute;
+  top: 0;
+}
 .link__dropdown {
   transition: all 0.6s ease-in-out !important;
 }

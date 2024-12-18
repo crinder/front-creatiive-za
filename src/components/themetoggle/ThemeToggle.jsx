@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import { Moon } from '../../assets/icons/Moon';
+import { Sun } from '../../assets/icons/Sun';
 
 export const ThemeToggle = () => {
   const [theme, setTheme] = useState(() => {
@@ -32,9 +34,9 @@ export const ThemeToggle = () => {
   return (
     <>
       <button
-        className='absolute top-2 right-2 border rounded-3xl p-3 text-xl font-semibold border-gray-300 dark:!border-slate-300/10 text-gray-800 dark:text-slate-400'
+        className='absolute right-5 top-1 md:top-3  border rounded-3xl p-3 text-xl font-semibold border-gray-300 dark:!border-slate-300/10 text-gray-800 dark:text-slate-400'
         onClick={handleTheme}>
-        Light/Dark
+        {theme === 'dark' ? <Moon/> : theme === 'light' ? <Sun/> : null}
       </button>
     </>
   );
