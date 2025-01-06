@@ -8,7 +8,6 @@ import { InvIcon } from "../../assets/icons/InvIcon";
 import { OthersIcon } from "../../assets/icons/OthersIcon";
 import { QueryIcon } from "../../assets/icons/QueryIcon";
 
-
 const Nav = () => {
 
     const [isCollapsed, setIsCollapsed] = useState(false);
@@ -78,6 +77,7 @@ const Nav = () => {
                                 <NavLink to="#" title="asistencias" className="nav__link z-20" disabled>
                                     <QueryIcon/>
                                     <span className="link hide">Consultas</span>
+                                    <span className="tooltip__content">Asistencias</span>
                                 </NavLink>
                             </div>
                             <div className={` ${isDropdownOpen ? 'dropdown__menu' : 'dropdown__hide'} `}>
@@ -119,6 +119,7 @@ const Nav = () => {
                 </div>
 
             </nav>
+            
         </div>
     )
 }

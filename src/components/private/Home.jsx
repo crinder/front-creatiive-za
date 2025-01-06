@@ -10,7 +10,7 @@ import Image7 from '../../assets/img/image-2.png';
 const Home = () => {
   return (
     <div className='mx-auto my-8 main__container'>
-      <h1 className="text-5xl font-bold dark:text-slate-200">Hola! Bienvenido A Creative - ZA</h1>
+      <h1 className="text-5xl font-bold dark:text-slate-200">Hola! Bienvenido A Creativa - ZA</h1>
 
       <div className='home__bubbles'>
         <ul className='bubbles__list'>

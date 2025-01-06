@@ -140,7 +140,7 @@ const InvoicesTab = ({ tabkey, clients, clientesAct }) => {
           <caption>
             <span className="table-row-count"></span>
           </caption>
-          <thead className='text-xs text-gray-800 uppercase bg-gray-50 dark:bg-slate-800 dark:text-slate-400 '>
+          <thead className='text-lg text-gray-800 uppercase bg-gray-50 dark:bg-slate-800 dark:text-slate-400 '>
             <tr className="text-center bg-gray-50 dark:bg-slate-800">
               <th scope="col" class="px-6 py-3">Nombre</th>
               <th scope="col" class="px-6 py-3">Monto</th>
@@ -155,7 +155,7 @@ const InvoicesTab = ({ tabkey, clients, clientesAct }) => {
             {invoicesGet.length > 0 && invoicesGet.map(invoice => {
               return (
                 <tr key={invoice._id} 
-                className="odd:bg-white dark:odd:bg-slate-900 even:bg-gray-50 dark:even:bg-slate-700  border-b  text-center dark:text-slate-300">
+                className="odd:bg-white dark:odd:bg-slate-900 even:bg-gray-50 dark:even:bg-slate-700  border-b  text-center dark:text-slate-300 text-xl">
                   <td className="team-member-profile px-6 py-4">
                     {/*<img src="${teamMember.src}" alt="${teamMember.name}"/>*/}
                     <span className="profile-info">

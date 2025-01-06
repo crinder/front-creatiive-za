@@ -108,7 +108,7 @@ const Otros = () => {
 
 
                     <label htmlFor="fecinic" className="font-bold dark:text-slate-200">Filtrar</label>
-                    <Form.Select aria-label="Default select example" onChange={changeStatusInvoice} className="shadow-lg w-11/12 py-8 md:py-3 px-6 text-xl font-semibold my-6 mx-3 dark:bg-slate-700 dark:border-none dark:text-slate-300">
+                    <Form.Select aria-label="Default select example" onChange={changeStatusInvoice} className="shadow-lg w-11/12 py-3  px-6 text-xl font-semibold my-6 mx-3 dark:bg-slate-700 dark:border-none dark:text-slate-300">
                         {statusDes.length > 0 && statusDes.map(payment => {
 
                             return (
@@ -135,13 +135,13 @@ const Otros = () => {
                         dateFormat="dd/MM/yyyy"
                         className="m-2 rounded py-2 px-3 shadow-sm dark:bg-slate-700 dark:border-none dark:text-slate-300"
                     />
-                    <button type="submit" className="btn_submit solid mb-5">Crear</button>
+                    <button type="submit" className="button solid mb-5">Crear</button>
                 </form>
             </div>
 
             <div className='result__client flex justify-center'>
                 <div className="table-widget w-full dark:bg-slate-700 dark:border-none dark:text-slate-300">
-                    <table>
+                    <table className="w-full">
                         <caption>
                             <h2 className="text-3xl text-center font-bold dark:text-slate-300">Pagos</h2>
                             {/* <span className="table-row-count"></span> */}

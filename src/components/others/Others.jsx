@@ -1,5 +1,7 @@
+import { ErrorMessage, Field, Formik } from 'formik';
 import React, { useEffect, useState } from 'react';
 import Form from 'react-bootstrap/Form';
+import * as Yup from 'yup';
 import useform from '../../assets/hooks/useform';
 import Global from '../../helpers/Global';
 import { useAuth } from '../context/AuthContext';
@@ -18,7 +20,16 @@ const Others = () => {
         getDescripcion();
     }, []);
 
+    const validationSchema = Yup.object({
+        amount: Yup.number().required('Ingrese un monto').min(1,'El monto deber ser minimo de 1'),
+        observation: Yup.string().required('ingrese una observación').min(3,'La observación debe tener minimo 3 letras'),
+    });
 
+    const CustomErrorMessage = ({ children }) => (
+        <div className="color__error">
+          {children}
+        </div>
+      );
 
     const getDescripcion = async () => {
 
@@ -91,8 +102,15 @@ const Others = () => {
             </header>
 
             <section>
-                <form onSubmit={register}>
-                    <Form.Select aria-label="Default select example" onChange={changedMethod} className="shadow-lg w-11/12 py-8 md:py-3 px-6 text-2xl md:text-xl font-semibold my-6 mx-3 dark:bg-slate-700 dark:border-none dark:text-slate-300">
+                <Formik 
+                onSubmit={(values) => {
+                register(values);
+                }}
+                validationSchema={validationSchema}
+                initialValues={{amount: '', observation: ''}}
+                >
+                    <Form>
+                    <Form.Select aria-label="Default select example" onChange={changedMethod} className="shadow-lg w-11/12 py-6 md:py-3 px-6 text-2xl md:text-xl font-semibold my-6 mx-3 dark:bg-slate-700 dark:border-none dark:text-slate-300">
                         <option disabled selected>Seleccione un pago</option>
                         {descrip.length > 0 && descrip.map(payment => {
 
@@ -108,15 +126,18 @@ const Others = () => {
 
                     <div className='flex flex-col my-2'>
                         <label htmlFor="amount" className='label__form dark:text-slate-300'>Monto</label>
-                        <input type="text" name='amount' className='rounded py-3 px-3  dark:bg-slate-700 dark:border-none dark:text-slate-300' onChange={changed} />
+                        <Field type="text" name='amount' className='rounded py-3 px-3  dark:bg-slate-700 dark:border-none dark:text-slate-300' onChange={changed} />
+                        <ErrorMessage name="amount"component={CustomErrorMessage}/>
                     </div>
 
                     <div className='flex flex-col my-2'>
                         <label htmlFor="observation" className='label__form dark:text-slate-300'>Observación</label>
-                        <input type="text" name='observation' className='rounded py-3 px-3  dark:bg-slate-700 dark:border-none dark:text-slate-300' onChange={changed} />
+                        <Field type="text" name='observation' className='rounded py-3 px-3  dark:bg-slate-700 dark:border-none dark:text-slate-300' onChange={changed} />
+                        <ErrorMessage name="observation"component={CustomErrorMessage}/>
                     </div>
-                    <button type="submit" className="btn_submit solid my-8">Crear</button>
-                </form>
+                    <button type="submit" className="button solid my-8">Crear</button>
+                    </Form>
+                </Formik>
             </section>
 
             <section >

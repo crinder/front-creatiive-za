@@ -33,7 +33,7 @@ const Table = ({ otros, setOtros }) => {
     return (
         <div>
             <div className="table-widget dark:bg-slate-700 dark:border-none dark:text-slate-300'">
-                <table className='dark:bg-slate-700 dark:border-none dark:text-slate-300'>
+                <table className='dark:bg-slate-700 dark:border-none dark:text-slate-300 w-full'>
                     <caption>
                         <span className="table-row-count"></span>
                     </caption>
