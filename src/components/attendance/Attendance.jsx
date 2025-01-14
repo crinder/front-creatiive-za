@@ -8,6 +8,7 @@ import Alerts from '../utils/Alerts';
 import BodyCollapse from './BodyCollapse';
 import HeaderCollapse from './HeaderCollapse';
 import Modals from './Modals';
+import Message from '../utils/Message';
 
 const Attendance = () => {
 
@@ -17,15 +18,18 @@ const Attendance = () => {
     const { token, isLoading } = useAuth();
     const [show, setShow] = useState(false);
     const [aceptar, setAceptar] = useState(false);
-    
+    const [variant, setVariant] = useState();
+    const [message, setMessage] = useState();
+
     const title = 'Asistencias';
-    const [showAlert, setShowAlert] = useState(false)
+    const [showAlert, setShowAlert] = useState(false);
 
     const handleAlert = () => {
         setShowAlert(true);
+
         setTimeout(() => {
             setShowAlert(false);
-        },5000) 
+        }, 5000)
     }
 
 
@@ -39,7 +43,7 @@ const Attendance = () => {
         }
 
     }
-    
+
 
     useEffect(() => {
         if (clientesAct.length > 0) {
@@ -81,9 +85,15 @@ const Attendance = () => {
         const data = await request.json();
 
         if (data.status == 'success') {
-            console.log('Asistencia eliminada');
             getInvoice();
+            setVariant('Correcto');
+            setMessage('Asistencia eliminada');
+        }else{
+            setVariant('Error');
+            setMessage(data.error);
         }
+
+        handleAlert();
 
     }
 
@@ -114,20 +124,17 @@ const Attendance = () => {
         }
 
     }
-    console.log(showAlert);
-
-    
-
-    const variant = 'danger'
-    const message = 'Se creo la asistencia'
 
     return (
         <div className='content dark:border-slate-300/10 dark:text-slate-200'>
+
+            <Message showAlert={showAlert} tipo={variant} message={message} />
+
             <Find title={title} clientesAct={clientesAct} setClientesAct={setClientesAct} isFocused={isFocused} setIsFocuset={setIsFocuset} />
 
             <div className={`content__invoice ${isFocused ? 'opacity__element' : ''}`} >
 
-                <Modals show={show} handleClose={handleClose} setAceptar={setAceptar} clientesAct={clientesAct} onAviso={handleAlert}/>
+                <Modals show={show} handleClose={handleClose} setAceptar={setAceptar} clientesAct={clientesAct} onAviso={handleAlert} setVariant={setVariant} setMessage={setMessage}/>
 
                 <section className='tab__invoice'>
 
@@ -139,7 +146,7 @@ const Attendance = () => {
                                 <Accordion defaultActiveKey="0">
                                     <Accordion.Item eventKey="0">
                                         <Accordion.Header >
-                                            <HeaderCollapse nombre={clients.nombre}  />
+                                            <HeaderCollapse nombre={clients.nombre} />
                                         </Accordion.Header>
                                         <Accordion.Body >
                                             <BodyCollapse clientInvoice={clientInvoice} clientId={clients.id} setDeleteAtte={setDeleteAtte} />
@@ -157,9 +164,8 @@ const Attendance = () => {
 
                 </section>
             </div>
-            <Alerts variant={'danger'} message={'alerta mensaje'} />
             <div className='div__espacio'>
-                <span class="button" onClick={handleShow}>
+                <span class="button-success" onClick={handleShow}>
                     Crear asistencia
                 </span>
             </div>

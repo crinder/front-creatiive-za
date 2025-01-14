@@ -1,35 +1,52 @@
-import { ErrorMessage, Field, Formik } from 'formik';
+import { ErrorMessage, Field, Form, Formik } from 'formik';
 import React, { useEffect, useState } from 'react';
-import Form from 'react-bootstrap/Form';
+import FormB from 'react-bootstrap/Form';
 import * as Yup from 'yup';
 import useform from '../../assets/hooks/useform';
 import Global from '../../helpers/Global';
 import { useAuth } from '../context/AuthContext';
 import Table from './Table';
+import Message from '../utils/Message';
 
 const Others = () => {
 
-    const { form, changed } = useform();
+    const { values, changed } = useform();
     const { token, isLoanding } = useAuth();
     const [descrip, setDescrip] = useState('');
     const [method, setMethod] = useState('');
     const [resultado, setResultado] = useState('');
     const [otros, setOtros] = useState([]);
+    const [variant, setVariant] = useState();
+    const [message, setMessage] = useState();
+    const [showAlert, setShowAlert] = useState(false);
+    const [indicador, setIndicador] = useState(false);
 
     useEffect(() => {
         getDescripcion();
     }, []);
 
+    const handleAlert = () => {
+        setShowAlert(true);
+
+        setTimeout(() => {
+            setShowAlert(false);
+        }, 5000)
+    }
+
+    useEffect(() => {
+        buscarPendientes();
+    }, [indicador]); 
+
     const validationSchema = Yup.object({
-        amount: Yup.number().required('Ingrese un monto').min(1,'El monto deber ser minimo de 1'),
-        observation: Yup.string().required('ingrese una observación').min(3,'La observación debe tener minimo 3 letras'),
+        amount: Yup.number().required('Ingrese un monto').min(1, 'El monto deber ser minimo de 1'),
+        observation: Yup.string().required('ingrese una observación').min(3, 'La observación debe tener minimo 3 caracteres'),
     });
 
     const CustomErrorMessage = ({ children }) => (
         <div className="color__error">
-          {children}
+            {children}
         </div>
-      );
+    );
 
     const getDescripcion = async () => {
 
@@ -54,7 +71,32 @@ const Others = () => {
         if (data.status == 'success') {
 
             setDescrip(data.findStored);
+            buscarPendientes();
         }
+    }
+
+    const buscarPendientes = async() => {
+
+        let body= {status: 'ACT'};
+
+        const request = await fetch(Global.url + 'others/get', {
+            method: 'POST',
+            body: JSON.stringify(body),
+            headers: {
+                'Content-Type': 'application/json',
+                "authorization": token
+            }
+        });
+
+        const data = await request.json();
+
+        if (data.status == 'success') {
+            setOtros(data.others);
+        } else {
+            setVariant('Error');
+            setMessage(data.message);
+        }
+
     }
 
     const changedMethod = (event) => {
@@ -70,11 +112,9 @@ const Others = () => {
     }, [resultado]);
 
 
-    const register = async (e) => {
-        e.preventDefault();
+    const register = async (values) => {
 
-        let body = form;
-
+        let body = values;
         body.method = method;
 
         const request = await fetch(Global.url + 'others/register', {
@@ -85,65 +125,79 @@ const Others = () => {
                 "authorization": token
             }
         });
+
         const data = await request.json();
 
         if (data.status == 'success') {
-            console.log('Registro exitoso...' + data);
             setResultado(data.others);
+            setVariant('Correcto');
+            setMessage('Pago creado');
+        } else {
+            setVariant('Error');
+            setMessage(data.message);
         }
+
+        handleAlert();
     }
 
     return (
-        <div className='content dark:border-slate-300/10'>
-            <header>
-                <div>
-                    <span className='text-4xl font-bold dark:text-slate-200'>Otros pagos</span>
-                </div>
-            </header>
 
-            <section>
-                <Formik 
-                onSubmit={(values) => {
+        <Formik
+            initialValues={{ amount: '', observation: '' }}
+            validationSchema={validationSchema}
+            onSubmit={(values) => {
                 register(values);
-                }}
-                validationSchema={validationSchema}
-                initialValues={{amount: '', observation: ''}}
-                >
-                    <Form>
-                    <Form.Select aria-label="Default select example" onChange={changedMethod} className="shadow-lg w-11/12 py-6 md:py-3 px-6 text-2xl md:text-xl font-semibold my-6 mx-3 dark:bg-slate-700 dark:border-none dark:text-slate-300">
-                        <option disabled selected>Seleccione un pago</option>
-                        {descrip.length > 0 && descrip.map(payment => {
+            }}
+        >
 
-                            return (
+            {({ handleChange }) => (
+                <div className='content dark:border-slate-300/10'>
+                    <Message showAlert={showAlert} tipo={variant} message={message} />
 
-                                <option value={payment.descrip} id={payment._id}>{payment.descrip}</option>
+                    <header>
+                        <div>
+                            <span className='text-4xl font-bold dark:text-slate-200'>Otros pagos</span>
+                        </div>
+                    </header>
 
-                            )
-                        })
+                    <section>
 
-                        }
-                    </Form.Select>
+                        <Form>
+                            <FormB.Select aria-label="Default select example" onChange={changedMethod} className="shadow-lg w-11/12 py-6 md:py-3 px-6 text-2xl md:text-xl font-semibold my-6 mx-3 dark:bg-slate-700 dark:border-none dark:text-slate-300">
+                                <option disabled selected>Seleccione un pago</option>
+                                {descrip.length > 0 && descrip.map(payment => {
 
-                    <div className='flex flex-col my-2'>
-                        <label htmlFor="amount" className='label__form dark:text-slate-300'>Monto</label>
-                        <Field type="text" name='amount' className='rounded py-3 px-3  dark:bg-slate-700 dark:border-none dark:text-slate-300' onChange={changed} />
-                        <ErrorMessage name="amount"component={CustomErrorMessage}/>
-                    </div>
+                                    return (
+                                        <option value={payment.descrip} id={payment._id}>{payment.descrip}</option>
+                                    )
+                                })
 
-                    <div className='flex flex-col my-2'>
-                        <label htmlFor="observation" className='label__form dark:text-slate-300'>Observación</label>
-                        <Field type="text" name='observation' className='rounded py-3 px-3  dark:bg-slate-700 dark:border-none dark:text-slate-300' onChange={changed} />
-                        <ErrorMessage name="observation"component={CustomErrorMessage}/>
-                    </div>
-                    <button type="submit" className="button solid my-8">Crear</button>
-                    </Form>
-                </Formik>
-            </section>
+                                }
+                            </FormB.Select>
 
-            <section >
-                    <Table otros={otros} setOtros={setOtros}  />
-            </section>
-        </div>
+                            <div className='flex flex-col my-2'>
+                                <label htmlFor="amount" className='label__form dark:text-slate-300'>Monto</label>
+                                <Field type="text" name='amount' className='rounded py-3 px-3  dark:bg-slate-700 dark:border-none dark:text-slate-300' onChange={(e) => { handleChange(e); changed(e); }} />
+                                <ErrorMessage name="amount" component={CustomErrorMessage} />
+                            </div>
+
+                            <div className='flex flex-col my-2'>
+                                <label htmlFor="observation" className='label__form dark:text-slate-300'>Observación</label>
+                                <Field type="text" name='observation' className='rounded py-3 px-3  dark:bg-slate-700 dark:border-none dark:text-slate-300' onChange={(e) => { handleChange(e); changed(e); }} />
+                                <ErrorMessage name="observation" component={CustomErrorMessage} />
+                            </div>
+                            <button type="submit" className="button solid my-8">Crear</button>
+                        </Form>
+                    </section>
+
+                    <section >
+                        <Table otros={otros} setOtros={setOtros} setVariant={setVariant} setMessage={setMessage} handleAlert={handleAlert} setIndicador={setIndicador} />
+                    </section>
+                </div>
+            )}
+
+        </Formik>
+
     )
 }
 

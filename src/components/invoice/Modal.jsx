@@ -6,12 +6,13 @@ import Global from '../../helpers/Global';
 import { useAuth } from '../context/AuthContext';
 
 
-const Modals = ({ show, handleClose, setAceptar, params }) => {
+const Modals = ({ show, handleClose, setAceptar, params, handleAlert, setVariant, setMessage }) => {
 
     const { token, isLoading } = useAuth();
     const [statusInvoice, setStatusInvoice] = useState('');
     const [statusDes, setStatusDes] = useState('');
     const [isCob, setisCob] = useState(false);
+    let tipo;
 
     useEffect(() => {
 
@@ -26,10 +27,12 @@ const Modals = ({ show, handleClose, setAceptar, params }) => {
         if (params.action == 'COBRAR') {
 
             cobrar();
+            tipo = 'cobrada';
 
         } else if (params.action == 'CANCELAR') {
 
             cancelar();
+            tipo = 'cancelada';
 
         }
 
@@ -53,8 +56,14 @@ const Modals = ({ show, handleClose, setAceptar, params }) => {
         const data = await request.json();
 
         if (data.status == 'success') {
-            console.log('actualizado');
             setAceptar(true);
+            handleAlert(true);
+            setVariant('Correcto');
+            setMessage('factura '+tipo);
+        }else{
+            handleAlert(true);
+            setVariant('Error');
+            setMessage(data.message);
         }
 
     }

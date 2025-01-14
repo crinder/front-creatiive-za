@@ -1,4 +1,4 @@
-import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faTrash,faHandHoldingDollar } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import moment from 'moment';
 import React from 'react';
@@ -6,9 +6,40 @@ import Global from '../../helpers/Global';
 import { useAuth } from '../context/AuthContext';
 
 
-const Table = ({ otros, setOtros }) => {
+const Table = ({ otros, setOtros, setVariant, setMessage,handleAlert,setIndicador }) => {
 
     const { token, isLoading } = useAuth();
+
+    const cobrar = async (id) => {
+
+        let body ={status: 'PAG'};
+
+        const request = await fetch(Global.url + 'others/update/'+id, {
+            method: 'POST',
+            body: JSON.stringify(body),
+            headers: {
+                "Content-type": 'application/json',
+                "authorization": token
+            }
+
+        });
+
+        const data = await request.json();
+
+        if(data.status == 'success'){
+            handleAlert(true);
+            setVariant('Correcto');
+            setMessage('Marcado como pagado');
+            setIndicador(true);
+        }else{
+
+            handleAlert(false);
+            setVariant('Error');
+            setMessage(data.message);
+
+        }
+
+    }
 
     const deleteOthers = async (id) => {
       
@@ -23,7 +54,13 @@ const Table = ({ otros, setOtros }) => {
         const data = await request.json();
 
         if (data.status == 'success') {
-            console.log('Otros eliminados');
+            handleAlert(true);
+            setVariant('Correcto');
+            setMessage('Pago eliminado');
+        }else{
+            handleAlert(true);
+            setVariant('Error');
+            setMessage(data.message);
         }
 
         setOtros(otros.filter(otro => otro._id != id));
@@ -47,9 +84,6 @@ const Table = ({ otros, setOtros }) => {
                         </tr>
                     </thead>
                     <tbody id="team-member-rows">
-
-
-
                         {otros.length > 0 && otros.map(otro => {
 
                             return (
@@ -74,6 +108,7 @@ const Table = ({ otros, setOtros }) => {
                                     </td>
                                     <td>{otro.status}</td>
                                     {otro.status == 'ACT' && <td><FontAwesomeIcon icon={faTrash} onClick={e => deleteOthers(otro._id)} /></td>}
+                                    {otro.status == 'ACT' && <td><FontAwesomeIcon icon={faHandHoldingDollar} onClick={e => cobrar(otro._id)} /></td>}
                                 </tr>
                             )
                         })

@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import Global from '../../helpers/Global';
 import { useAuth } from '../context/AuthContext';
 import Modals from './Modal';
+import Message from "../utils/Message";
 
 const InvoicesTab = ({ tabkey, clients, clientesAct }) => {
 
@@ -19,6 +20,17 @@ const InvoicesTab = ({ tabkey, clients, clientesAct }) => {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const [params, setParams] = useState({});
+  const [showAlert, setShowAlert] = useState(false);
+  const [variant, setVariant] = useState();
+  const [message, setMessage] = useState();
+
+  const handleAlert = () => {
+          setShowAlert(true);
+  
+          setTimeout(() => {
+              setShowAlert(false);
+          }, 5000)
+      }
 
   const getInvoices = async () => {
 
@@ -134,7 +146,9 @@ const InvoicesTab = ({ tabkey, clients, clientesAct }) => {
 
   return (
     <div>
-      <Modals show={show} handleClose={handleClose} setAceptar={setAceptar} params={params} />
+      <Message showAlert={showAlert} tipo={variant} message={message} />
+
+      <Modals show={show} handleClose={handleClose} setAceptar={setAceptar} params={params} handleAlert={handleAlert} setVariant={setVariant} setMessage={setMessage} />
       <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
         <table className='w-full text-sm text-left rtl:text-right text-gray-500 '>
           <caption>

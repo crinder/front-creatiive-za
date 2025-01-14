@@ -5,6 +5,7 @@ import { useLocation } from 'react-router-dom';
 import { useClient } from '../context/AuthClient';
 import Find from './Find';
 import InvoicesTab from './InvoicesTab';
+import Message from '../utils/Message';
 
 
 const Invoices = () => {
@@ -25,6 +26,7 @@ const Invoices = () => {
 
   return (
     <div className='content dark:text-slate-100 dark:border-slate-300/10'>
+
       <Find title={title} clientesAct={clientesAct} setClientesAct={setClientesAct} isFocused={isFocused} setIsFocuset={setIsFocuset} ind={ind} />
       <div className={`content__invoice ${isFocused ? 'opacity__element' : ''}`} >
 

@@ -4,10 +4,8 @@ import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 import Global from '../../helpers/Global';
 import { useAuth } from '../context/AuthContext';
- 
 
-const Modals = ({ show, handleClose, setAceptar, onAviso, clientesAct = [] }) => {
-
+const Modals = ({ show, handleClose, setAceptar, onAviso, clientesAct = [], setVariant, setMessage }) => {
 
     const [cantidad, setCantidad] = useState({});
     const [cantidadSelect, setCantidadSelect] = useState('');
@@ -16,8 +14,6 @@ const Modals = ({ show, handleClose, setAceptar, onAviso, clientesAct = [] }) =>
      const accept = () => {
         CreateInvoice();
     }
-
-    
 
     useEffect(() => {
         getMethod('invoices_amount');
@@ -77,9 +73,14 @@ const Modals = ({ show, handleClose, setAceptar, onAviso, clientesAct = [] }) =>
 
         if (data.status == 'success') {
             setAceptar(true);
-            onAviso(true)
+            onAviso(true);
+            setVariant('Correcto');
+            setMessage('Asistencia creada');
         } else {
-            onAviso(false)
+            setAceptar(true);
+            onAviso(false);
+            setVariant('Error');
+            setMessage(data.message);
         }
     }
 

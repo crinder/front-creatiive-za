@@ -12,11 +12,9 @@ const Asistencias = () => {
   const [statusAttendance, setStatusAttendance] = useState("");
   const [clientInvoice, setClientInvoice] = useState("");
   const [paginaActual, setPaginaActual] = useState(1);
-    
-  const [todosLosElementos, setTodosLosElementos] = useState([]);
+  const [sumStatus, setSumStatus] = useState([]);
 
-  
-  
+  const [todosLosElementos, setTodosLosElementos] = useState([]);
 
   const elementosPorPagina = 10;
   const indiceFinal = paginaActual * elementosPorPagina;
@@ -94,7 +92,7 @@ const Asistencias = () => {
         statusFac: statusInvoice,
       };
 
-      const request = await fetch(Global.url + "invoice/list", {
+      const request = await fetch(Global.url + "invoice/listar", {
         method: "POST",
         body: JSON.stringify(body),
         headers: {
@@ -108,9 +106,40 @@ const Asistencias = () => {
       if (data.status == "success") {
         console.log(data.facturas);
         setClientInvoice(data.facturas);
+
+        let totales = {};
+        let array = [];
+
+        data.facturas.map(fact => {
+
+          if (!totales[fact.status]) {
+            totales[fact.status] = fact.amount;
+          } else {
+            totales[fac.status] += fact.amount;
+          }
+
+        });
+
+        setSumStatus(Object.entries(totales));
+
       }
     }
   };
+
+  function formatearEstado(estado) {
+
+    let regresa;
+    
+    if(estado == 'PEN'){
+      regresa = 'pendiente';
+    }else if(estado == 'COB'){
+      regresa = 'cobrado';
+    }else{
+       regresa = estado;
+    }
+
+    return regresa;
+  }
 
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
@@ -164,106 +193,81 @@ const Asistencias = () => {
           />
 
           <button type="submit" className="button mb-5">
-            Crear
+            Buscar
           </button>
         </form>
       </div>
 
-      <div className="result__client flex justify-center ">
-        <div className="table-widget w-full dark:bg-slate-700 dark:border-none dark:text-slate-300">
-          <table className="w-full">
-            <caption className="grid">
-              <h2 className="text-3xl text-center font-bold dark:text-slate-300">
-                Asistencias
-              </h2>
-              {/* <span className="table-row-count"></span> */}
-            </caption>
+      <div className="">
+        <table className='w-full text-sm text-left rtl:text-right text-gray-500'>
+          <thead className='text-lg text-gray-800 bg-gray-50 dark:bg-slate-800 dark:text-slate-400'>
+            <tr className="text-center bg-gray-50 dark:bg-slate-800 title__thead">
+              <th className="title__thead">Asistencia</th>
+              <th className="title__thead">Estado</th>
+              <th className="title__thead">Monto</th>
+              <th className="title__thead">Fecha</th>
+            </tr>
+          </thead>
 
-            {clientInvoice.length > 0 &&
-              clientInvoice.map((client) => {
-                return (
-                  <caption
-                    key={client._id}
-                    className="grid grid-rows-2 table__body"
-                  >
-                    <thead key={client._id} className="dark:bg-slate-700">
-                      {client.clients.map((clientes) => {
-                        return (
-                          <tr key={clientes._id}>
-                            <th className="text-xl dark:text-slate-200 font-bold ">
-                              {clientes.name}
-                            </th>
-                          </tr>
-                        );
-                      })}
-                    </thead>
+          <tbody id="team-member-rows">
 
-                    <tbody id="team-member-rows" className="">
-                      <tr className="grid grid-cols-4 dark:text-slate-200">
-                        <td className="profile-info__name ">ID asistencia</td>
-                        <td className="profile-info__name">Estado</td>
-                        <td className="profile-info__name">Monto</td>
-                        <td className="profile-info__name">
-                          Fecha de asistencia
-                        </td>
-                      </tr>
-                      {client.asistencias.map((asistencia) => {
-                        return (
-                          <tr
-                            key={asistencia._id}
-                            className="grid grid-cols-4 dark:bg-slate-700 dark:text-slate-200"
-                          >
-                            <td className="profile-info__name">
-                              {asistencia._id}
-                            </td>
-                            <td className="profile-info__name">
-                              {asistencia.status}
-                            </td>
-                            <td className="profile-info__name">
-                              {asistencia.amount}
-                            </td>
-                            <td className="profile-info__name">
-                              {moment(asistencia.created_at).format(
-                                "DD-MM-YYYY HH:mm:ss"
-                              )}
-                            </td>
-                          </tr>
-                        );
-                      })}
-                    </tbody>
-                  </caption>
-                );
-              })}
+            {clientInvoice.length > 0 && clientInvoice.map(client => {
 
-            <tbody id="team-member-rows"></tbody>
-            <tfoot className="dark:bg-slate-700 w-10/12">
-              <tr>
-                <td>
-                  <ul className="pagination">
-                    <ul>
-                      {elementosPagina.map((elemento, index) => (
-                        <li key={index}>{elemento}</li>
-                      ))}
-                    </ul>
-                    <button
-                      onClick={anteriorPagina}
-                      disabled={paginaActual === 1}
-                    >
-                      Anterior
-                    </button>
-                    <button
-                      onClick={siguientePagina}
-                      disabled={paginaActual === totalPaginas}
-                    >
-                      Siguiente
-                    </button>
-                  </ul>
-                </td>
-              </tr>
-            </tfoot>
-          </table>
-        </div>
+              return (
+
+                <tr key={client._id} className="text-center dark:text-slate-300 text-xl">
+                  <td className='team-member-profile px-6 py-2'>
+                    {client.clients.length > 0 && client.clients.map(clientes => {
+
+                      return (
+                        <span className="profile-info">{clientes.name + ' ' + clientes.surname}</span>
+                      )
+
+                    })}
+                  </td>
+
+                  <td className='team-member-profile px-6 py-2'>
+                    <span className="profile-info">{client.status}</span>
+                  </td>
+
+                  <td className='team-member-profile px-6 py-2'>
+                    <span className="profile-info">{client.amount}</span>
+                  </td>
+
+                  <td className='team-member-profile px-6 py-2'>
+                    <span className="profile-info">{moment(client.created_at).format('DD-MM-YYYY HH:mm:ss')}</span>
+                  </td>
+                </tr>
+              )
+            })
+
+            }
+
+          </tbody>
+          <tfoot className="border-t border-gray-200 dark:border-gray-700 p-4">
+            {sumStatus.length > 0 && sumStatus.map(([status,total]) => {
+              return (
+                <tr className="text-center dark:text-slate-300 text-xl">
+                  <td>
+                    <span className="table-row-count"></span>
+                  </td>
+                  <td>
+                    <span className="tfoot__td">Total {formatearEstado(status)+ ': ' +total}</span>
+                  </td>
+                  <td>
+                    <span className="tfoot__td"></span>
+                  </td>
+                </tr>
+              )
+
+            })
+
+            }
+          </tfoot>
+        </table>
       </div>
+
+
     </div>
   );
 };

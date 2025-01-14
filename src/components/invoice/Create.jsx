@@ -19,15 +19,11 @@ const Create = () => {
     const [cantidadSelect, setCantidadSelect] = useState('');
 
     const changedMethod = (evento) => {
-        
         setPaymentMethod(evento.target.value);
-
     }
 
     const changedCantidad = (evento) => {
-        
         setCantidad(evento.target.value);
-
     }
 
     const handleCheckboxChange = () => {
@@ -80,15 +76,11 @@ const Create = () => {
         e.preventDefault();
 
         let body = form;
-        console.log(clientesAct);
 
         body.id_client = clientesAct;
         body.status = isChecked ? 'PAG' : 'PEN';
         body.payment_method = paymentMethod;
         body.amount = cantidadSelect;
-
-        console.log(body);
-
         const request = await fetch(Global.url + 'invoice/register', {
             method: 'POST',
             body: JSON.stringify(body),

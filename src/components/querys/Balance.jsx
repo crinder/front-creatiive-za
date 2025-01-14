@@ -12,6 +12,8 @@ const Balance = () => {
     const [statusInvoice, setStatusInvoice] = useState('');
     const [datos, setDatos] = useState([]);
     const [ingresos, setIngresos] = useState([]);
+    const [totalIng, setTotalIng] = useState();
+    const [totalEgr, setTotalEgr] = useState();
 
     useEffect(() => {
 
@@ -44,10 +46,8 @@ const Balance = () => {
         const data = await request.json();
 
         if (data.status == 'success') {
-
             setStatusDes(data.findStored);
             setStatusInvoice(data.findStored[0]?.code);
-
         }
 
     }
@@ -87,9 +87,23 @@ const Balance = () => {
             const data = await request.json();
 
             if (data.status == 'success') {
-                console.log(data.egresos);
                 setDatos(data.egresos);
                 setIngresos(data.ingresos);
+                
+                let total = 0;
+
+                data.ingresos.map(ingreso => {
+                    total += ingreso.total;
+                });
+
+                setTotalIng(total);
+                total =0;
+
+                data.egresos.map(egreso => {
+                    total += egreso.total;
+                });
+
+                setTotalEgr(total);
             }
 
         }
@@ -106,7 +120,7 @@ const Balance = () => {
                 <form onSubmit={getData}>
 
                     <label htmlFor="fecinic" className="font-bold dark:text-slate-200">Filtrar</label>
-                    <Form.Select  aria-label="Default select example" onChange={changeStatusInvoice} className="shadow-lg w-11/12 py-3 px-6 text-xl font-semibold my-6 mx-3 dark:bg-slate-700 dark:border-none dark:text-slate-300">
+                    <Form.Select aria-label="Default select example" onChange={changeStatusInvoice} className="shadow-lg w-11/12 py-3 px-6 text-xl font-semibold my-6 mx-3 dark:bg-slate-700 dark:border-none dark:text-slate-300">
                         {statusDes.length > 0 && statusDes.map(payment => {
 
                             return (
@@ -137,129 +151,148 @@ const Balance = () => {
                 </form>
             </div>
 
-            <div className='result__client mx-auto md:flex md:justify-center'>
-                <div className="table-widget mx-auto md:w-full dark:bg-slate-700 dark:border-none dark:text-slate-300">
-                    <table className="w-full">
-                        <caption>
-                        <h2 className="text-3xl text-center font-bold dark:text-slate-300">Balance</h2>
-                        {/* <span className="table-row-count"></span>  */}
-                        </caption>
+            <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
+                <caption>
+                    <h2 className="text-3xl text-center font-bold dark:text-slate-300">Balance</h2>
+                    {/* <span className="table-row-count"></span>  */}
+                </caption>
+                <table className='w-full text-sm text-left rtl:text-right text-gray-500 '>
+                    <thead className='text-lg text-gray-800 bg-gray-50 dark:bg-slate-800 dark:text-slate-400'>
+                        <tr className="text-center bg-gray-50 dark:bg-slate-800 title__thead">
+                            <th className="title__thead">Tipo</th>
+                            <th className="title__thead">Descripcion</th>
+                            <th className="title__thead">Credito</th>
+                            <th className="title__thead">Debito</th>
+                            <th className="title__thead">Fecha</th>
+                        </tr>
+                    </thead>
+                    {datos.length > 0 && datos.map(client => {
 
-                        <caption>
-                            <thead className="flex justify-around md:items-center dark:text-slate-400">
-                                <th>Egreso</th>
-                                <th>Monto</th>
-                                <th>Fecha</th>
-                            </thead>
-
+                        return (
                             <tbody id="team-member-rows">
-
-                                {datos.length > 0 && datos.map(client => {
-
+                                {client.details.map(detail => {
                                     return (
 
-                                        <caption key={client._id}>
-                                            <tbody >
-                                                {client.details.map(detail => {
-                                                    return (
-                                                        <tr key={detail._id} >
-                                                            <td className='profile-info__name'>
-                                                                {detail._id}
-                                                            </td>
-                                                            <td className='profile-info__name'>
-                                                                {detail.amount}
-                                                            </td>
-                                                            <td className='profile-info__name'>
-                                                                {moment(detail.created_at).format('DD-MM-YYYY HH:mm:ss')}
-                                                            </td>
-                                                        </tr>
-                                                    )
-                                                })
+                                        <tr key={detail._id} className="text-center dark:text-slate-300 text-xl">
 
-                                                }
-                                            </tbody>
-                                            <tfoot>
-                                                <tr>
-                                                    <td>
-                                                        <ul className="pagination">
-                                                           total: {client.total}
-                                                        </ul>
-                                                    </td>
-                                                </tr>
-                                            </tfoot>
+                                            <td className="team-member-profile px-6 py-2">
+                                                <span className="profile-info">
+                                                    Egreso
+                                                </span>
+                                            </td>
 
-                                        </caption>
+                                            <td className="team-member-profile px-6 py-2">
+                                                <span className="profile-info">
+                                                    {detail.method}
+                                                </span>
+                                            </td>
 
+                                            <td className="team-member-profile px-6 py-2">
+                                                <span className="profile-info">
+                                                    -
+                                                </span>
+                                            </td>
+
+                                            <td className="team-member-profile px-6 py-2">
+                                                <span className="profile-info">
+                                                    {detail.amount}
+                                                </span>
+                                            </td>
+
+                                            <td className="team-member-profile px-6 py-2">
+                                                <span className="profile-info">
+                                                    {moment(detail.created_at).format('DD-MM-YYYY HH:mm:ss')}
+                                                </span>
+                                            </td>
+                                        </tr>
                                     )
                                 })
 
                                 }
-
                             </tbody>
-                        </caption>
+                        )
+                    })
 
-                        <caption>
-                            <span className="table-row-count"></span>
-                        </caption>
+                    }
 
-                        <caption>
-                            <thead className="flex justify-around dark:text-slate-400">
-                                <th>Factura</th>
-                                <th>Monto</th>
-                                <th>Fecha</th>
-                            </thead>
+                    {ingresos.length > 0 && ingresos.map(client => {
 
+                        return (
                             <tbody id="team-member-rows">
-
-                                {ingresos.length > 0 && ingresos.map(client => {
-
+                                {client.details.map(detail => {
                                     return (
 
-                                        <caption key={client._id}>
-                                            <tbody>
-                                                {client.details.map(detail => {
-                                                    return (
-                                                        <tr key={detail._id} className="md:flex ">
-                                                            <td className='profile-info__name md:flex md:min-w-96 md:justify-center'>
-                                                                {detail._id}
-                                                            </td>
-                                                            <td className='profile-info__name md:flex md:min-w-96 md:justify-center'>
-                                                                {detail.amount}
-                                                            </td>
-                                                            <td className='profile-info__name md:flex md:min-w-96 md:justify-center'>
-                                                                {moment(detail.created_at).format('DD-MM-YYYY HH:mm:ss')}
-                                                            </td>
-                                                        </tr>
-                                                    )
-                                                })
+                                        <tr key={detail._id} className="text-center dark:text-slate-300 text-xl">
 
-                                                }
-                                            </tbody>
-                                            <tfoot>
-                                                <tr>
-                                                    <td>
-                                                        <ul className="pagination">
-                                                           total: {client.total}
-                                                        </ul>
-                                                    </td>
-                                                </tr>
-                                            </tfoot>
+                                            <td className="team-member-profile px-6 py-2">
+                                                <span className="profile-info">
+                                                    Ingreso
+                                                </span>
+                                            </td>
 
-                                        </caption>
+                                            <td className="team-member-profile px-6 py-2">
+                                                <span className="profile-info">
+                                                    {detail._id}
+                                                </span>
+                                            </td>
 
+                                            <td className="team-member-profile px-6 py-2">
+                                                <span className="profile-info">
+                                                    {detail.amount}
+                                                </span>
+                                            </td>
+
+                                            <td className="team-member-profile px-6 py-2">
+                                                <span className="profile-info">
+                                                    -
+                                                </span>
+                                            </td>
+
+                                            <td className="team-member-profile px-6 py-2">
+                                                <span className="profile-info">
+                                                    {moment(detail.created_at).format('DD-MM-YYYY HH:mm:ss')}
+                                                </span>
+                                            </td>
+                                        </tr>
                                     )
                                 })
 
                                 }
-
                             </tbody>
-                        </caption>
+                        )
+                    })
 
+                    }
+                    <tfoot className="border-t border-gray-200 dark:border-gray-700 p-4">
+                        <tr className="text-center dark:text-slate-300 text-xl">
+                            <td>
+                                <span className="table-row-count"></span>
+                            </td>
+                            <td className="tfoot__td">
+                                <span>Total ingresos: {totalIng}</span>
+                            </td>
+                        </tr>
+                        <tr className="text-center dark:text-slate-300 text-xl">
+                            <td>
+                                <span className="table-row-count"></span>
+                            </td>
+                            <td className="tfoot__td">
+                                <span>Total egresos: {totalEgr}</span>
+                            </td>
+                        </tr>
 
-
-                    </table>
-                </div>
+                        <tr className="text-center dark:text-slate-300 text-xl">
+                            <td>
+                                <span className="table-row-count"></span>
+                            </td>
+                            <td className="tfoot__td">
+                                <span>Saldo: {totalEgr && totalIng - totalEgr}</span>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
             </div>
+
         </div>
     )
 }
