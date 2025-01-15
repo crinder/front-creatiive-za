@@ -801,28 +801,33 @@ form.form__signup {
   min-width: 2.8rem;
 }
 
-.sidebar-links li a:hover svg {
+.sidebar-links li a:hover svg,
+.sidebar-links li .nav__link--dropdown:hover svg {
   color: var(--sidebar-primary);
 }
 
-.sidebar-links li a:hover {
+.sidebar-links li a:hover,
+.sidebar-links li .nav__link--dropdown:hover {
   color: var(--sidebar-primary);
   background: var(--sidebar-primary-hover);
   border-radius: 10px;
 }
 
-  .dark  .sidebar-links li a:hover svg {
+  .dark  .sidebar-links li a:hover svg,
+  .dark  .sidebar-links li .nav__link--dropdown:hover svg {
     color: var(--sidebar-primary-dark);
   }
 
-  .dark  .sidebar-links li a:hover {
+  .dark  .sidebar-links li a:hover,
+  .dark  .sidebar-links li .nav__link--dropdown:hover {
     color: var(--sidebar-primary-dark);
     background: var(--sidebar-bg-hover-dark);
     border-radius: 10px;
   }
 
 
-.sidebar-links li a {
+.sidebar-links li a,
+.sidebar-links li .nav__link--dropdown {
   color: var(--text-link);
   flex-grow: 1;
   padding: 0 0 0 1rem;
@@ -837,19 +842,22 @@ form.form__signup {
   text-decoration: none;
 }
 
-.sidebar-links li a .link {
+.sidebar-links li a .link,
+.sidebar-links li .nav__link--dropdown .link {
   flex-grow: 1;
   overflow: hidden;
   white-space: nowrap;
   animation: fadeIn 0.2s ease-in-out;
 }
 
-.sidebar-links li a img {
+.sidebar-links li a img,
+.sidebar-links li .nav__link--dropdown img {
   height: 3.4rem;
   width: 3.4rem;
 }
 
-.sidebar-links .active:hover {
+
+.sidebar-links .active:hover{
   background: var(--sidebar-primary-hover);
 }
 
@@ -1512,6 +1520,10 @@ form.form__signup {
   animation: fadeDiv1 0.3s forwards;
 }
 
+.dropdown__menu-client {
+  animation: fadeDiv4 0.3s forwards;
+}
+
 .dropdown__in {
   margin-left: 1rem !important;
   animation: dropOpen 0.3s forwards;
@@ -1548,7 +1560,23 @@ form.form__signup {
 
   100% {
     opacity: 1;
-    height: 130px;
+    height: auto;
+  }
+}
+
+@keyframes fadeDiv4 {
+  0% {
+    opacity: 0;
+    height: 0px;
+  }
+
+  50% {
+    overflow: hidden;
+  }
+
+  100% {
+    opacity: 1;
+    height: auto;
   }
 }
 

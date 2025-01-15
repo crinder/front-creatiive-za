@@ -7,20 +7,28 @@ import { HomeIcon } from "../../assets/icons/HomeIcon";
 import { InvIcon } from "../../assets/icons/InvIcon";
 import { OthersIcon } from "../../assets/icons/OthersIcon";
 import { QueryIcon } from "../../assets/icons/QueryIcon";
+import { faPen } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const Nav = () => {
 
     const [isCollapsed, setIsCollapsed] = useState(false);
+    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+    const [isDropdownClient, setIsDropdownClient] = useState(false);
 
     const handlecollpased = () => {
         setIsCollapsed(!isCollapsed);
     }
 
-    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
 
     const handleDropdownToggle = () => {
         setIsDropdownOpen(!isDropdownOpen);
     };
+
+    const handleDropdownToggleClient = () => {
+        setIsDropdownClient(!isDropdownClient);
+    }
 
     return (
 
@@ -35,7 +43,7 @@ const Nav = () => {
 
                         </a>
                     </div> */}
-                    
+
                 </div>
 
 
@@ -57,11 +65,29 @@ const Nav = () => {
                         </li>
 
                         <li>
-                            <NavLink to="/creative-za/clients" title="clients" className="nav__link" disabled>
-                                <ClientsIcon />
-                                <span className="link hide">Clientes</span>
-                                <span className="tooltip__content">Clientes</span>
-                            </NavLink>
+                            <div className="nav__link z-20 nav__link--dropdown" disabled onClick={handleDropdownToggleClient}>
+                                <QueryIcon />
+                                <span className="link hide">Cliente</span>
+                                <span className="tooltip__content">Cliente</span>
+                            </div>
+                            <div className={`${isDropdownClient ? 'dropdown__menu-client' : 'dropdown__hide'}`}>
+                                <ul className={`${isDropdownClient ? 'dropdown__in' : 'dropdown__out'}`} >
+                                    <li>
+                                        <NavLink to="/creative-za/clients" title="clients" className="nav__link" disabled>
+                                            <ClientsIcon />
+                                            <span className="link hide">Clientes</span>
+                                            <span className="tooltip__content">Clientes</span>
+                                        </NavLink>
+                                    </li>
+                                    <li>
+                                        <NavLink to="/creative-za/modificar-clientes" title="modificar-clientes" className="nav__link" disabled>
+                                            <FontAwesomeIcon icon={faPen}/>
+                                            <span className="link hide">Modificar clientes</span>
+                                            <span className="tooltip__content">Modificar clientes</span>
+                                        </NavLink>
+                                    </li>
+                                </ul>
+                            </div>
                         </li>
 
                         <li>
@@ -71,14 +97,12 @@ const Nav = () => {
                                 <span className="tooltip__content">Asistencias</span>
                             </NavLink>
                         </li>
-            
-                        <li>    
-                            <div onClick={handleDropdownToggle}>
-                                <NavLink to="#" title="asistencias" className="nav__link z-20" disabled>
-                                    <QueryIcon/>
-                                    <span className="link hide">Consultas</span>
-                                    <span className="tooltip__content">Asistencias</span>
-                                </NavLink>
+
+                        <li>
+                            <div className="nav__link z-20 nav__link--dropdown" disabled onClick={handleDropdownToggle}>
+                                <QueryIcon />
+                                <span className="link hide">Consultas</span>
+                                <span className="tooltip__content">Consultas</span>
                             </div>
                             <div className={` ${isDropdownOpen ? 'dropdown__menu' : 'dropdown__hide'} `}>
                                 <ul className={`${isDropdownOpen ? 'dropdown__in' : 'dropdown__out'}`} >
@@ -119,7 +143,7 @@ const Nav = () => {
                 </div>
 
             </nav>
-            
+
         </div>
     )
 }
