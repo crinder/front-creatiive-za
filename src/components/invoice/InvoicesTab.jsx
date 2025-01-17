@@ -156,11 +156,11 @@ const InvoicesTab = ({ tabkey, clients, clientesAct }) => {
           </caption>
           <thead className='text-lg text-gray-800 uppercase bg-gray-50 dark:bg-slate-800 dark:text-slate-400 '>
             <tr className="text-center bg-gray-50 dark:bg-slate-800">
-              <th scope="col" class="px-6 py-3">Nombre</th>
-              <th scope="col" class="px-6 py-3">Monto</th>
-              <th scope="col" class="px-6 py-3">Fecha</th>
-              {tabkey == 'cobradas' && <th th scope="col" class="px-6 py-3">Metodo de pago</th>}
-              <th scope="col" class="px-6 py-3">Acciones</th>
+              <th scope="col" className="px-6 py-3">Nombre</th>
+              <th scope="col" className="px-6 py-3">Monto</th>
+              <th scope="col" className="px-6 py-3">Fecha</th>
+              {tabkey == 'cobradas' && <th th scope="col" className="px-6 py-3">Metodo de pago</th>}
+              <th scope="col" className="px-6 py-3">Acciones</th>
               <th></th>
               <th></th>
             </tr>

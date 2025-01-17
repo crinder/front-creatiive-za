@@ -15,6 +15,7 @@ import Balance from "../components/querys/Balance";
 import Otros from "../components/querys/Otros";
 import { AnimatedRoute } from "./AnimatedRoute";
 import UpdateClients from "../components/clients/UpdateClients";
+import Clientes from "../components/querys/Clientes";
 
 const Routing = () => {
   const location = useLocation();
@@ -35,6 +36,7 @@ const Routing = () => {
         <Route path="otros-pagos" element={<AnimatedRoute><Others /></AnimatedRoute>}/>
         <Route path="consultar-balance" element={<AnimatedRoute><Balance /></AnimatedRoute>}/>
         <Route path="modificar-clientes" element={<AnimatedRoute><UpdateClients /></AnimatedRoute>}/>
+        <Route path="consulta-clientes" element={<AnimatedRoute><Clientes /></AnimatedRoute>}/>
       </Route>
     </Routes>
   );

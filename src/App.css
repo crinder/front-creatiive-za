@@ -597,7 +597,8 @@ form.form__signup {
   grid-area: header;
   border-bottom: 1px solid #ddd;
   background: white;
-  padding: 1rem;
+  padding-left: 2rem;
+  padding-left: 2rem;
   z-index: 1;
 }
 
@@ -811,6 +812,7 @@ form.form__signup {
   color: var(--sidebar-primary);
   background: var(--sidebar-primary-hover);
   border-radius: 10px;
+  cursor: pointer;
 }
 
   .dark  .sidebar-links li a:hover svg,
@@ -1867,6 +1869,8 @@ form.form__signup {
   pointer-events: none;
 }
 
+/**FIN ALERT**/
+
 /****/
 
 .title__thead{
@@ -1889,7 +1893,31 @@ form.form__signup {
   padding: 0.5rem;
 }
 
-/**FIN ALERT**/
+.client-edit:hover{
+    background-color: #28a2ff;
+    cursor: pointer;
+}
+
+.margin-l2{
+  margin-left: 2rem;
+}
+
+.header__logo{
+  height: 80px;
+  width: 100px;
+  margin-left: 40px;
+  cursor: pointer;
+  transition: all 300ms ease-in-out;
+}
+
+.header__img:hover{
+  transform: scale(1.1);
+}
+
+.header__img{
+  width: 150px;
+  height: 90px;
+}
 
 @tailwind base;
 @tailwind components;

@@ -8,7 +8,7 @@ export const Sun = () => {
       height="24"
       viewBox="0 0 24 24"
       fill="currentColor"
-      class="icon icon-tabler icons-tabler-filled icon-tabler-sun"
+      className="icon icon-tabler icons-tabler-filled icon-tabler-sun"
     >
       <path stroke="none" d="M0 0h24v24H0z" fill="none" />
       <path d="M12 19a1 1 0 0 1 .993 .883l.007 .117v1a1 1 0 0 1 -1.993 .117l-.007 -.117v-1a1 1 0 0 1 1 -1z" />

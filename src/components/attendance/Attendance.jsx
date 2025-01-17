@@ -165,7 +165,7 @@ const Attendance = () => {
                 </section>
             </div>
             <div className='div__espacio'>
-                <span class="button-success" onClick={handleShow}>
+                <span className="button-success" onClick={handleShow}>
                     Crear asistencia
                 </span>
             </div>

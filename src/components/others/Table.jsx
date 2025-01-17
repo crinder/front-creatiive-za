@@ -87,7 +87,7 @@ const Table = ({ otros, setOtros, setVariant, setMessage,handleAlert,setIndicado
                         {otros.length > 0 && otros.map(otro => {
 
                             return (
-                                <tr>
+                                <tr key={otro._id}>
                                     <td className="team-member-profile">
                                         <span className="profile-info">
 

@@ -56,11 +56,12 @@ const Nav = () => {
                                 <span className="tooltip__content">Home</span>
                             </NavLink>
                         </li>
+
                         <li>
-                            <NavLink to="/creative-za/invoice" title="invoice" className="nav__link" disabled>
-                                <InvIcon />
-                                <span className="link hide">Crear facturas</span>
-                                <span className="tooltip__content">Crear facturas</span>
+                            <NavLink to="/creative-za/asistencias" title="asistencias" className="nav__link z-20" disabled>
+                                <AttendIcon />
+                                <span className="link hide">Asistencias</span>
+                                <span className="tooltip__content">Asistencias</span>
                             </NavLink>
                         </li>
 
@@ -75,15 +76,15 @@ const Nav = () => {
                                     <li>
                                         <NavLink to="/creative-za/clients" title="clients" className="nav__link" disabled>
                                             <ClientsIcon />
-                                            <span className="link hide">Clientes</span>
-                                            <span className="tooltip__content">Clientes</span>
+                                            <span className="link hide">Crear</span>
+                                            <span className="tooltip__content">Crear</span>
                                         </NavLink>
                                     </li>
                                     <li>
                                         <NavLink to="/creative-za/modificar-clientes" title="modificar-clientes" className="nav__link" disabled>
                                             <FontAwesomeIcon icon={faPen}/>
-                                            <span className="link hide">Modificar clientes</span>
-                                            <span className="tooltip__content">Modificar clientes</span>
+                                            <span className="link hide">Modificar</span>
+                                            <span className="tooltip__content">Modificar </span>
                                         </NavLink>
                                     </li>
                                 </ul>
@@ -91,26 +92,26 @@ const Nav = () => {
                         </li>
 
                         <li>
-                            <NavLink to="/creative-za/asistencias" title="asistencias" className="nav__link z-20" disabled>
-                                <AttendIcon />
-                                <span className="link hide">Asistencias</span>
-                                <span className="tooltip__content">Asistencias</span>
+                            <NavLink to="/creative-za/invoice" title="invoice" className="nav__link" disabled>
+                                <InvIcon />
+                                <span className="link hide">Facturas</span>
+                                <span className="tooltip__content">Facturas</span>
                             </NavLink>
                         </li>
 
                         <li>
                             <div className="nav__link z-20 nav__link--dropdown" disabled onClick={handleDropdownToggle}>
                                 <QueryIcon />
-                                <span className="link hide">Consultas</span>
-                                <span className="tooltip__content">Consultas</span>
+                                <span className="link hide">Reportes</span>
+                                <span className="tooltip__content">Reportes</span>
                             </div>
                             <div className={` ${isDropdownOpen ? 'dropdown__menu' : 'dropdown__hide'} `}>
                                 <ul className={`${isDropdownOpen ? 'dropdown__in' : 'dropdown__out'}`} >
                                     <li>
                                         <NavLink to="/creative-za/consultar-asistencias" title="consultar-asistencias" className="nav__link" disabled>
                                             <AttendIcon />
-                                            <span className="link hide">Asistencias</span>
-                                            <span className="tooltip__content">Asistencias</span>
+                                            <span className="link hide">Facturas</span>
+                                            <span className="tooltip__content">Facturas</span>
                                         </NavLink>
                                     </li>
                                     <li>
@@ -125,6 +126,13 @@ const Nav = () => {
                                             <BalanceIcon />
                                             <span className="link hide">Balance</span>
                                             <span className="tooltip__content">Ingresos y Egresos</span>
+                                        </NavLink>
+                                    </li>
+                                    <li>
+                                        <NavLink to="/creative-za/consulta-clientes" title="consultar-otros" className="nav__link" disabled>
+                                            <BalanceIcon />
+                                            <span className="link hide">Clientes</span>
+                                            <span className="tooltip__content">Clientes</span>
                                         </NavLink>
                                     </li>
 

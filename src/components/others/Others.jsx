@@ -164,11 +164,11 @@ const Others = () => {
 
                         <Form>
                             <FormB.Select aria-label="Default select example" onChange={changedMethod} className="shadow-lg w-11/12 py-6 md:py-3 px-6 text-2xl md:text-xl font-semibold my-6 mx-3 dark:bg-slate-700 dark:border-none dark:text-slate-300">
-                                <option disabled selected>Seleccione un pago</option>
+                                <option disabled selected value={'deafult'}  >Seleccione un pago</option>
                                 {descrip.length > 0 && descrip.map(payment => {
 
                                     return (
-                                        <option value={payment.descrip} id={payment._id}>{payment.descrip}</option>
+                                        <option value={payment.descrip} id={payment._id} key={payment._id}>{payment.descrip}</option>
                                     )
                                 })
 

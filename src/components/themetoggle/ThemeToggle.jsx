@@ -30,11 +30,10 @@ export const ThemeToggle = () => {
     setTheme(currentTheme);
   }, []); // Solo se ejecuta una vez al montar el componente
 
-  console.log(theme);
   return (
     <>
       <button
-        className='absolute right-5 top-1 md:top-3  border rounded-3xl p-3 text-xl font-semibold border-gray-300 dark:!border-slate-300/10 text-gray-800 dark:text-slate-400'
+        className='absolute right-5 top-1.5 md:top-6  border rounded-3xl p-3 text-xl font-semibold border-gray-300 dark:!border-slate-300/10 text-gray-800 dark:text-slate-400'
         onClick={handleTheme}>
         {theme === 'dark' ? <Moon/> : theme === 'light' ? <Sun/> : null}
       </button>

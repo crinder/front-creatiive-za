@@ -35,7 +35,7 @@ const Detail = () => {
             </ul>
 
             <div className='div__espacio'>
-                <span class="button__span" onClick={regresa}>
+                <span className="button__span" onClick={regresa}>
                     Regresar
                 </span>
             </div>

@@ -10,8 +10,8 @@ export const InvIcon = () => {
       fill="none"
       stroke="currentColor"
       stroke-width="2"
-      stroke-linecap="round"
-      stroke-linejoin="round"
+      strokeLinecap="round"
+      strokeLinejoin="round"
       className="icon icon-tabler icons-tabler-outline icon-tabler-invoice hover:text-blue-600 dark:hover:text-slate-100"
     >
       <path stroke="none" d="M0 0h24v24H0z" fill="none" />

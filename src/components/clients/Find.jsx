@@ -14,7 +14,6 @@ const Find = ({clientResponse,setClientResponse}) => {
     const { token, isLoading } = useAuth();
     const { clientesAct, setClientesAct, isFocused, setIsFocuset, limpiarClient } = useClient();
 
-
     const handleFocus = () => setIsFocuset(true);
 
     const changeInput = (event) => {
@@ -75,10 +74,9 @@ const Find = ({clientResponse,setClientResponse}) => {
             <section>
                 <div className="search__wrapper relative">
                     <InputSearch changeInput={changeInput} handleBlur={handleBlur} handleFocus={handleFocus} />
-                </div>
+                </div> 
 
-                <div className={`navList-in block absolute z-10 max-h-80 w-2/3 pl-8 bg-slate-100 outline overflow-auto border-none cursor-pointer dark:bg-slate-800
-                               ${!isFocused ? 'ocultar_elemento' : ''}  `}>
+                <div className={`navList-in block margin-l2 absolute z-10 max-h-80 w-2/3 pl-8 bg-slate-100 outline overflow-auto border-none cursor-pointer dark:bg-slate-800 ${!isFocused ? 'ocultar_elemento' : ''}  `}>
                     {requestClient.length > 0 &&
                         requestClient.map((clientes) => (
                             <div className="client__response" key={clientes._id}>

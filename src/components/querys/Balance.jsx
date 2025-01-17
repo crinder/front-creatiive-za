@@ -89,7 +89,7 @@ const Balance = () => {
             if (data.status == 'success') {
                 setDatos(data.egresos);
                 setIngresos(data.ingresos);
-                
+
                 let total = 0;
 
                 data.ingresos.map(ingreso => {
@@ -97,7 +97,7 @@ const Balance = () => {
                 });
 
                 setTotalIng(total);
-                total =0;
+                total = 0;
 
                 data.egresos.map(egreso => {
                     total += egreso.total;
@@ -231,9 +231,13 @@ const Balance = () => {
                                             </td>
 
                                             <td className="team-member-profile px-6 py-2">
-                                                <span className="profile-info">
-                                                    {detail._id}
-                                                </span>
+
+                                                {detail.cliente.length > 0 && detail.cliente.map(clien => {
+                                                    return (
+                                                        <span className="profile-info">Factura: {clien.name + ' '+ clien.surname}</span>
+                                                    )
+                                                })}
+
                                             </td>
 
                                             <td className="team-member-profile px-6 py-2">
