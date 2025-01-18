@@ -188,11 +188,11 @@ const InvoicesTab = ({ tabkey, clients, clientesAct }) => {
                       {invoice.amount+''+invoice.payment_charge}
                     </span>
                   </td>
-                  <td className="px-6 py-4">{moment(invoice.created_at).format('YYYY-MM-DD HH:mm:ss')}</td>
+                  <td className="px-6 py-4">{moment(invoice.created_at).format('DD-MM-YYYY HH:mm:ss')}</td>
                   {tabkey == 'cobradas' && <td>{invoice.payment_method}</td>}
-                  {tabkey == 'pendiente' && <td><FontAwesomeIcon icon={faHandHoldingDollar} onClick={e => cobrar(invoice._id)} /></td>}
-                  {tabkey == 'pendiente' && <td><FontAwesomeIcon icon={faXmark} onClick={e => cancelar(invoice._id)} /></td>}
-                  <td className="px-6 py-4"><FontAwesomeIcon icon={faEye} onClick={e => getAttendance(invoice._id)} /></td>
+                  {tabkey == 'pendiente' && <td><FontAwesomeIcon icon={faHandHoldingDollar} onClick={e => cobrar(invoice._id)} className="action__icon"/></td>}
+                  {tabkey == 'pendiente' && <td><FontAwesomeIcon icon={faXmark} onClick={e => cancelar(invoice._id)} className="action__icon"/></td>}
+                  <td className="px-6 py-4"><FontAwesomeIcon icon={faEye} onClick={e => getAttendance(invoice._id)} className="action__icon"/></td>
 
                 </tr>
               )

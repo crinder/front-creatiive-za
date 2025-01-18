@@ -303,11 +303,11 @@ form.form__signup {
 }
 
 .panel {
-  display: flex;
+  /*display: flex;
   flex-direction: column;
   align-items: flex-end;
   justify-content: space-around;
-  text-align: center;
+  text-align: center;*/
   z-index: 7;
 }
 
@@ -331,7 +331,7 @@ form.form__signup {
 }
 
 .content {
-  width: 98%;
+  width: 90%;
   height: fit-content;
   padding: 5rem;
   margin: 1rem auto;
@@ -431,15 +431,25 @@ form.form__signup {
 }
 
 .img__panel{
+  /**/
+  width: 400px;
+  margin: 6rem;
+}
+
+.panel__img__home{
   position: relative;
   display: flex;
+}
+
+.image__left{
+  height: 400px;
 }
 
 .plants--img{
   position: absolute;
   height: 200px;
-  top: 280px;
-  left: 140px;
+  top: 490px;
+  left: 210px;
 }
 
 
@@ -1746,7 +1756,7 @@ form.form__signup {
 .toast-toast {
   position: absolute;
   top: 25px;
-  right: 30px;
+  right: -50px;
   border-radius: 12px;
   background: #fff;
   padding: 20px 35px 20px 25px;
@@ -1828,6 +1838,9 @@ form.form__signup {
 
 .toast-toast .progress-error:before {
   background-color: red;
+}
+.toast-toast .progress-danger:before {
+  background-color: yellow;
 }
 
 .toast-toast .progress-success:before {
@@ -1918,6 +1931,12 @@ form.form__signup {
   width: 150px;
   height: 90px;
 }
+
+.action__icon{
+  cursor: pointer;
+  font-size: 15px;
+}
+
 
 @tailwind base;
 @tailwind components;

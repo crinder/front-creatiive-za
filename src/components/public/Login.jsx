@@ -4,7 +4,7 @@ import { faLock, faUser } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Navigate, Outlet, useNavigate } from 'react-router-dom';
 import useForm from '../../assets/hooks/useform';
-import Image1 from '../../assets/img/image-1.png';
+import Image1 from '../../assets/img/logo_creative_za.png';
 import Image2 from '../../assets/img/image-2.png';
 import Global from '../../helpers/Global';
 import Alerts from '../utils/Alerts';
@@ -12,9 +12,10 @@ import Alerts from '../utils/Alerts';
 
 const login = () => {
 
-    const { form, changed } = useForm({});
     const [saved, setSaved] = useState('');
     const [alertMessage, setAlertMessage] = useState('');
+    const [userName, setUserName] = useState('');
+    const [pass__word, setPass__word] = useState('');
     const navigate = useNavigate();
     
 
@@ -24,8 +25,12 @@ const login = () => {
 
         setSaved("");
         setAlertMessage('');
-        const userLoging = form;
 
+        const userLoging = {
+            cod_user: userName,
+            password: pass__word
+        }
+        
         const request = await fetch(Global.url + 'users/login', {
             method: 'POST',
             body: JSON.stringify(userLoging),
@@ -56,41 +61,37 @@ const login = () => {
             <div className="container__form">
                 <div className="signin-signup">
                     <form action="" className="form__signin" onSubmit={loginUser}>
-                        <h2 className="signin__title">Bienvenido a Creative ZA</h2>
+                        <h2 className="signin__title">!Bienvenido de vuelta {userName}! </h2>
                         <div className='signin__alerta'>
                             {setSaved && <Alerts variant={saved} message={alertMessage} />}
                         </div>
                         <div className="signin__input">
                             <FontAwesomeIcon className='signin__input--icon' icon={faUser} />
-                            <input className="input__control" type="text" placeholder="Username" onChange={changed} name='cod_user' />
-                            <label htmlFor="Username" className="input__label" >Username </label>
+                            <input className="input__control" type="text" placeholder="Username" onChange={(e) => setUserName(e.target.value)} name='cod_user' />
+                            <label htmlFor="Username" className="input__label" >Usuario </label>
                         </div>
                         <div className="signin__input">
                             <FontAwesomeIcon className='signin__input--icon' icon={faLock} />
-                            <input className="input__control" type="password" placeholder="Password" name='password' onChange={changed} />
-                            <label htmlFor="password" className="input__label" >Password </label>
+                            <input className="input__control" type="password" placeholder="Password" name='password' onChange={(e) => setPass__word(e.target.value)} />
+                            <label htmlFor="password" className="input__label" >Contraseña</label>
                         </div>
                         <input type="submit" value="Login" className="btn_submit solid" />
                         <p className="signin__socialtxt">
                             Olvidaste tu contraseña?
                         </p>
                     </form>
-
-
                 </div>
 
                 <div className="container__panels">
                     <div className="panel left-panel">
                         <div className=" content--left">
-                            <h3 className="panel__title">New here ?</h3>
+                            <h3 className="panel__title">Ingresa tus credenciales para gestionar las citas y los registros de tus pacientes.</h3>
                             <p className="panel__text">
-                                Lorem ipsum dolor sit amet consectetur
-                                adipisicing elit.
+                            
                             </p>
                         </div>
                         <div className='img__panel'>
-                            <img src={Image1} className="panel__img panel__img--left" alt="left-panel-img" />
-                            <img src={Image2} className="panel__img panel__img--left" alt="left-panel-img" />
+                            <img src={Image1} className="panel__img panel__img--left image__left" alt="left-panel-img" />
                         </div>
 
                     </div>

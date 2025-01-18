@@ -22,7 +22,7 @@ const Routing = () => {
   return (
     <Routes location={location}>
       <Route path="/" element={<Layout />}>
-        <Route path="login" element={<Login />} />
+      <Route path="login" element={<Login />} />
       </Route>
       <Route path="/creative-za/*" element={<PrivateLayout />}>
         <Route path="home" element={<AnimatedRoute><Home /></AnimatedRoute>}/>

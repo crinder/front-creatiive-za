@@ -71,11 +71,18 @@ const Modals = ({ show, handleClose, setAceptar, onAviso, clientesAct = [], setV
 
         const data = await request.json();
 
+        console.log(data);
+
         if (data.status == 'success') {
             setAceptar(true);
             onAviso(true);
             setVariant('Correcto');
             setMessage('Asistencia creada');
+        }else if(data.status == 'danger'){
+            setAceptar(true);
+            onAviso(true);
+            setVariant('Alerta');
+            setMessage(data.message);
         } else {
             setAceptar(true);
             onAviso(false);
@@ -88,12 +95,7 @@ const Modals = ({ show, handleClose, setAceptar, onAviso, clientesAct = [], setV
 
 
     return (
-        <Modal
-            show={show}
-            onHide={handleClose}
-            backdrop="static"
-            keyboard={false}
-        >
+        <Modal show={show} onHide={handleClose} backdrop="static" keyboard={false}>
             <Modal.Header closeButton className='dark:bg-slate-800 '>
                 <Modal.Title className='text-2xl dark:text-slate-50'>Crear la asistencia</Modal.Title>
             </Modal.Header>
@@ -126,10 +128,7 @@ const Modals = ({ show, handleClose, setAceptar, onAviso, clientesAct = [], setV
 
                         }
                     </Form.Select>
-
                 </form>
-
-
             </Modal.Body>
             <Modal.Footer className='dark:bg-slate-800'>
                 <Button variant="secondary" onClick={handleClose}>

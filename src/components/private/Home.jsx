@@ -45,8 +45,8 @@ const Home = () => {
         </ul>
 
         <div className='img__panel'>
-          <img src={Image6} className="panel__img panel__img--left" alt="left-panel-img" />
-          <img src={Image7} className="panel__img plants--img" alt="left-panel-img" />
+          <img src={Image6} className="panel__img__home panel__img--left" alt="left-panel-img" />
+          <img src={Image7} className="panel__img__home plants--img" alt="left-panel-img" />
         </div>
 
       </div>

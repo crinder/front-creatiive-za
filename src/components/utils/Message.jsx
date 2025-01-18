@@ -1,13 +1,16 @@
 import React from 'react'
 
-const Message = ({showAlert,tipo, message }) => {
+const Message = ({ showAlert, tipo, message }) => {
+
 
 
 
     let valor = 'progress active progress-success';
 
-    if(tipo == 'Error'){
+    if (tipo == 'Error') {
         valor = 'progress progress-error active ';
+    } else if (tipo == 'Alerta') {
+        valor = 'progress progress-danger active ';
     }
 
     window.scrollTo({
@@ -22,7 +25,13 @@ const Message = ({showAlert,tipo, message }) => {
 
                 <div className="message">
                     <span className="text text-1">{tipo}</span>
-                    <span className="text text-2">{message}</span>
+                    {Array.isArray(message) ? message.map(mensaje => {
+                        return (
+                            <span className="text text-2">{mensaje}</span>
+                        )
+                    }): (
+                        <span className="text text-2">{message}</span>
+                    )}
                 </div>
             </div>
             <i className="fa-solid fa-xmark close"></i>
